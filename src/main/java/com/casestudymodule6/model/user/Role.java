@@ -10,8 +10,12 @@ import javax.persistence.Id;
 @Entity
 @Data
 public class Role {
+    public enum RoleType {
+        ADMIN, USER
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private RoleType roleType;
 }
