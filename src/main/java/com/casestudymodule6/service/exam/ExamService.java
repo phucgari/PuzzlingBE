@@ -40,8 +40,4 @@ public class ExamService implements IExamService
         return examRepository.findExamsByUser(userId);
     }
 
-    @Override
-    public Optional<Exam> findExamByUser(Long userId) {
-        return examRepository.findExamByUser(userId);
-    }
 }

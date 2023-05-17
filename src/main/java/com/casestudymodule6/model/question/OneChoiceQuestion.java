@@ -3,7 +3,6 @@ package com.casestudymodule6.model.question;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity

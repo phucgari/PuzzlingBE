@@ -10,5 +10,4 @@ public interface IExamService extends IGeneralService<Exam>
 {
     Iterable<Exam> findExamsByUser(@Param("userId") Long userId);
 
-    Optional<Exam> findExamByUser(@Param("userId") Long userId);
 }

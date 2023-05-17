@@ -15,7 +15,4 @@ public interface IExamRepository extends JpaRepository<Exam, Long>
       Iterable<Exam> findExamsByUser(@Param("userId") Long userId);
 
 
-     @Query("select exam from Exam exam join exam.user user where user.id = :userId ")
-     Optional<Exam> findExamByUser(@Param("userId") Long userId);
-
 }
