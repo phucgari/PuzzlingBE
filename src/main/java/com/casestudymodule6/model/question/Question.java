@@ -9,9 +9,10 @@ import javax.validation.constraints.NotBlank;
 @Data
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Question {
-    public enum Level{
-        EASY,MEDIUM,HARD
+    public enum Level {
+        EASY, MEDIUM, HARD
     }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,4 +20,7 @@ public abstract class Question {
     private Level level;
     @NotBlank
     private String name;
+    @ManyToOne
+    @JoinColumn(name = "exam_id")
+    private Exam exam;
 }
