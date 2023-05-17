@@ -19,4 +19,8 @@ public abstract class Question {
     private Level level;
     @NotBlank
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "exam_id")
+    private Exam exam;
 }

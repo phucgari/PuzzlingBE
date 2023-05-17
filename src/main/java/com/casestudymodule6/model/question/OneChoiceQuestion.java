@@ -8,12 +8,12 @@ import java.util.Set;
 
 @Entity
 @Data
-public class OneChoiceQuestion extends Question{
-    @OneToMany
+public class OneChoiceQuestion extends Question
+{
+    @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn(name = "question_id")
     private Set<OneChoiceOption> options;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "correct_option_id")
-    @NotNull
     private OneChoiceOption correctOption;
 }

@@ -1,5 +1,6 @@
 package com.casestudymodule6.model.question;
 
+import com.casestudymodule6.model.user.User;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,4 +19,9 @@ public class Exam {
     @OneToMany
     @JoinColumn(name = "exam_id")
     private Set<Question> questions;
+
+
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
 }

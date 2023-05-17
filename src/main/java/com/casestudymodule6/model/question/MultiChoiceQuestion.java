@@ -2,16 +2,13 @@ package com.casestudymodule6.model.question;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Data
 public class MultiChoiceQuestion extends Question{
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "question_id")
     private Set<MultiChoiceOption> options;
 }
