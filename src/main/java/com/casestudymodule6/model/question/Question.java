@@ -19,8 +19,13 @@ public abstract class Question {
     private Level level;
     @NotBlank
     private String name;
-
     @ManyToOne
     @JoinColumn(name = "exam_id")
     private Exam exam;
+    @Enumerated(EnumType.STRING)
+    private QuestionType questionType;
+    public enum QuestionType
+    {
+        MULTI_CHOICE,ONE_CHOICE
+    }
 }

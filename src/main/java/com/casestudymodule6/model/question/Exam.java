@@ -19,8 +19,6 @@ public class Exam {
     @OneToMany
     @JoinColumn(name = "exam_id")
     private Set<Question> questions;
-
-
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
