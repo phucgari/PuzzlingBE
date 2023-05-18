@@ -1,16 +1,15 @@
 package com.casestudymodule6.controller;
 
 import com.casestudymodule6.model.question.Exam;
-import com.casestudymodule6.model.question.MultiChoiceQuestion;
-import com.casestudymodule6.model.question.OneChoiceQuestion;
 import com.casestudymodule6.model.question.Question;
 import com.casestudymodule6.model.user.User;
 import com.casestudymodule6.service.exam.IExamService;
-import com.casestudymodule6.service.question.IQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @CrossOrigin("*")
 @RestController
@@ -20,12 +19,19 @@ public class ExamController
     @Autowired
     private IExamService examService;
 
-
-
-    @PostMapping("/createExam")
-    public ResponseEntity<Exam> createExam(@RequestBody Exam exam)
-    {;
+    @PostMapping("/createExam/{userId}")
+    public ResponseEntity<Exam> createExam(@PathVariable("userId") User user, @RequestBody Exam exam)
+    {
+        exam.setUser(user);
         examService.save(exam);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+    @PutMapping("/updateExam/{userId}")
+    public ResponseEntity<Exam> updateExam(@PathVariable("userId") User user, @RequestBody Exam exam)
+    {
+        Optional<Exam> optionalExam = examService.findById(exam.getId());
+        optionalExam.get().setUser(user);
+        optionalExam.get().setQuestions(exam.getQuestions());
+        return new ResponseEntity<>(examService.save(optionalExam.get()),HttpStatus.OK);
     }
 }
