@@ -4,11 +4,12 @@ import com.casestudymodule6.model.user.User;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Data
-public class Exam {
+public class Exam implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

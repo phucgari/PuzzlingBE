@@ -1,14 +1,19 @@
 package com.casestudymodule6.model.question;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
 @Entity
 @Data
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Question {
+@NoArgsConstructor
+public abstract class Question implements Serializable
+{
     public enum Level{
         EASY,MEDIUM,HARD
     }
