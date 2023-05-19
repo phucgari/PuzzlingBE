@@ -15,7 +15,5 @@ public class Answer
 
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "questionId")
-    private Question question;
+    private String status;
 }
