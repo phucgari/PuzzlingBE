@@ -1,18 +1,14 @@
 package com.casestudymodule6.model.question;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Data
-@Inheritance(strategy = InheritanceType.JOINED)
-@NoArgsConstructor
-public abstract class Question implements Serializable
-{
+public class Question {
     public enum Level{
         EASY,MEDIUM,HARD
     }
@@ -32,4 +28,18 @@ public abstract class Question implements Serializable
     {
         MULTI_CHOICE,ONE_CHOICE
     }
+
+    @Enumerated(EnumType.STRING)
+    private QUESTIONTYPE questiontype;
+
+    public enum QUESTIONTYPE
+    {
+        ONE_CHOICE, MULTI_CHOICE
+    }
+
+    @OneToMany
+    @JoinColumn(name = "answers")
+    private Set<Answer> answers;
+
+
 }
