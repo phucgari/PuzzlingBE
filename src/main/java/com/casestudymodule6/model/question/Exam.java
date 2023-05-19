@@ -17,7 +17,7 @@ public class Exam implements Serializable {
     @ManyToOne
     @JoinColumn(name="category_id")
     private Category category;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "exam_id")
     private Set<Question> questions;
     @ManyToOne

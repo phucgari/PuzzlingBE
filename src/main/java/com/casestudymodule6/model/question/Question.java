@@ -30,8 +30,8 @@ public class Question {
         ONE_CHOICE, MULTI_CHOICE
     }
 
-    @OneToMany
-    @JoinColumn(name = "answers")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "question_id")
     private Set<Answer> answers;
 
 

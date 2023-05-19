@@ -35,7 +35,7 @@ public class ExamController
     {
         Optional<Exam> optionalExam = examService.findById(exam.getId());
         optionalExam.get().setUser(user);
-
+        optionalExam.get().setQuestions(exam.getQuestions());
         return new ResponseEntity<>(examService.save(optionalExam.get()),HttpStatus.OK);
     }
 }
