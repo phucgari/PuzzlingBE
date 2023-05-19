@@ -7,8 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 @Entity
 @Data
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Question {
+public class Question {
     public enum Level{
         EASY,MEDIUM,HARD
     }
@@ -19,4 +18,8 @@ public abstract class Question {
     private Level level;
     @NotBlank
     private String name;
+
+    private String question_type;
+
+
 }
