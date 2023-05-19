@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class Answer
+public class Option
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

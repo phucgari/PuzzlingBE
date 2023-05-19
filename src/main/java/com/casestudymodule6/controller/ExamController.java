@@ -20,9 +20,6 @@ public class ExamController
     private IExamService examService;
 
 
-    @Autowired
-    private IQuestionService questionService;
-
     @PostMapping("/createExam/{userId}")
     public ResponseEntity<Exam> createExam(@PathVariable("userId") User user, @RequestBody Exam exam)
     {
