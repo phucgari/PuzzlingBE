@@ -21,5 +21,9 @@ public class Question {
 
     private String question_type;
 
+    @ManyToOne
+    @JoinColumn(name = "exam_id")
+    private Exam exam;
+
 
 }
