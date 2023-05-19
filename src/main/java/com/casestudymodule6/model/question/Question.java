@@ -1,6 +1,5 @@
 package com.casestudymodule6.model.question;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
