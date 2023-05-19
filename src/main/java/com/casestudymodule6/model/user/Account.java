@@ -1,6 +1,8 @@
 package com.casestudymodule6.model.user;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -8,12 +10,14 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Data
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id")
     private User user;
     @ManyToOne
     @NotNull
