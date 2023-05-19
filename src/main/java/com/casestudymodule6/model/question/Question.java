@@ -23,13 +23,6 @@ public class Question {
     @JoinColumn(name = "exam_id")
     private Exam exam;
     @Enumerated(EnumType.STRING)
-    private QuestionType questionType;
-    public enum QuestionType
-    {
-        MULTI_CHOICE,ONE_CHOICE
-    }
-
-    @Enumerated(EnumType.STRING)
     private QUESTIONTYPE questiontype;
 
     public enum QUESTIONTYPE

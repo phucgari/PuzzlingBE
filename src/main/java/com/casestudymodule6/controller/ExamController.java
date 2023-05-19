@@ -35,20 +35,7 @@ public class ExamController
     {
         Optional<Exam> optionalExam = examService.findById(exam.getId());
         optionalExam.get().setUser(user);
-        for (Question question : exam.getQuestions())
-        {
-            if (question.getQuestionType() == Question.QuestionType.ONE_CHOICE)
-            {
-                OneChoiceQuestion oneChoiceQuestion = (OneChoiceQuestion) question;
-                questionService.save(oneChoiceQuestion);
-            }
-            else
-            {
-                MultiChoiceQuestion multiChoiceQuestion = (MultiChoiceQuestion) question;
-                questionService.save(multiChoiceQuestion);
-            }
-        }
-        optionalExam.get().setQuestions(exam.getQuestions());
+
         return new ResponseEntity<>(examService.save(optionalExam.get()),HttpStatus.OK);
     }
 }
