@@ -32,7 +32,7 @@ public class Question {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "question_id")
-    private Set<Option> answers;
+    private Set<Option> options;
 
 
 }

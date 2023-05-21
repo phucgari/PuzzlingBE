@@ -20,7 +20,7 @@ public class Exam implements Serializable {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "exam_id")
     private Set<Question> questions;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="user_id")
     private User user;
 }
