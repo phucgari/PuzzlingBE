@@ -42,6 +42,8 @@ public class ExamController
         Optional<Exam> optionalExam = examService.findById(examId);
         optionalExam.get().setId(examId);
         optionalExam.get().setUser(optionalUser.get());
+        optionalExam.get().setName(exam.getName());
+        optionalExam.get().setCategory(exam.getCategory());
         optionalExam.get().setQuestions(exam.getQuestions());
         return new ResponseEntity<>(examService.save(optionalExam.get()),HttpStatus.OK);
     }
