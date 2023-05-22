@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/puzzling")
@@ -23,14 +25,14 @@ public class LoginController {
     public ResponseEntity<Account> registerAccount(@RequestBody Account account) {
         Account registeredAccount = accountService.register(account);
         if (registeredAccount != null) {
-            return new ResponseEntity<>(registeredAccount,HttpStatus.OK);
+            return new ResponseEntity<>(registeredAccount, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
 
 
-//    @PostMapping("/login")
+    //    @PostMapping("/login")
 //    public ResponseEntity<?> loginAccount(@RequestParam("username") String username, @RequestParam("password") String password) {
 //        Account account = accountService.login(username, password);
 //        if (account != null) {
@@ -53,11 +55,19 @@ public class LoginController {
             if (roleType == Role.RoleType.ADMIN) {
                 return new ResponseEntity<>(HttpStatus.OK);
             } else if (roleType == Role.RoleType.USER) {
-                return new ResponseEntity<>("Welcome " + account.getUsername(),HttpStatus.OK);
+                return new ResponseEntity<>("Welcome " + account.getUsername(), HttpStatus.OK);
             }
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-//    @PostMapping("/changePassword")
+    @GetMapping("check/{username}")
+    public ResponseEntity<String> checkUserName(@PathVariable String username) {
+        Optional<Account> account = Optional.ofNullable(accountService.findByUsername(username));
+        if (account.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.CONFLICT);
+    }
+
 }
