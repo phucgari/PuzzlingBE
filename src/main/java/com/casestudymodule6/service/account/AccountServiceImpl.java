@@ -31,15 +31,9 @@ public class AccountServiceImpl implements IAccountService {
         return iAccountRepository.save(account);
 
     }
-//    public void saveNew(Account account){
-//        iAccountRepository.save(account);
-//    }
 
     public Account findByUsername(String username) {
         return iAccountRepository.findByUsername(username);
-    }
-    public Account findByEmail(String email) {
-        return iAccountRepository.findByUserEmail(email);
     }
     @Override
     public void remove(Long id) {
