@@ -44,12 +44,9 @@ public class ExamController
     }
 
     @PostMapping(value ="/createExam")
-    public ResponseEntity<Exam> createExam(@RequestParam("username") String username, @RequestBody Exam exam)
+    public ResponseEntity<Exam> createExam(@RequestBody Exam exam)
     {
-        Optional<User> optionalUser = userService.findUserByUsername(username);
-        exam.setUser(optionalUser.get());
-        examService.save(exam);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(examService.save(exam),HttpStatus.CREATED);
     }
     @PutMapping("/updateExam")
     public ResponseEntity<Exam> updateExam(@RequestParam("examId") Long examId, @RequestBody Exam exam)
