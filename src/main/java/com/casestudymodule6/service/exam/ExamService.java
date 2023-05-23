@@ -35,9 +35,9 @@ public class ExamService implements IExamService
        examRepository.deleteById(id);
     }
 
-    @Override
-    public Iterable<Exam> findExamsByUser(Long userId) {
-        return examRepository.findExamsByUser(userId);
-    }
 
+    @Override
+    public Iterable<Exam> findExamsByUsername(String username) {
+        return examRepository.findExamsByUsername(username);
+    }
 }

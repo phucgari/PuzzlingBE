@@ -1,6 +1,7 @@
 package com.casestudymodule6.model.question;
 
 import com.casestudymodule6.model.user.User;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;

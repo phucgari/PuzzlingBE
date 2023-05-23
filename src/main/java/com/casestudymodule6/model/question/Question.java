@@ -1,5 +1,7 @@
 package com.casestudymodule6.model.question;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -19,11 +21,8 @@ public class Question {
     private Level level;
     @NotBlank
     private String name;
-    @ManyToOne
-    @JoinColumn(name = "exam_id")
-    private Exam exam;
     @Enumerated(EnumType.STRING)
-    private QUESTIONTYPE questiontype;
+    private QUESTIONTYPE questionType;
 
     public enum QUESTIONTYPE
     {

@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface IExamService extends IGeneralService<Exam>
 {
-    Iterable<Exam> findExamsByUser(@Param("userId") Long userId);
+    Iterable<Exam> findExamsByUsername(@Param("username") String username);
 
 }
