@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IAccountRepository extends JpaRepository<Account,Long> {
-     Account findByUsername(String username);
+public interface IAccountRepository extends JpaRepository<Account, Long> {
+    Account findByUsername(String username);
     Account findByUsernameAndPassword(String username, String password);
     Account findByUserEmail(String email);
 }
