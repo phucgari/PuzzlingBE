@@ -8,12 +8,10 @@ import java.util.Set;
 
 @Entity
 @Data
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Question {
-    public enum Level {
-        EASY, MEDIUM, HARD
+public class Question {
+    public enum Level{
+        EASY,MEDIUM,HARD
     }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,20 +19,17 @@ public abstract class Question {
     private Level level;
     @NotBlank
     private String name;
-    @ManyToOne
-    @JoinColumn(name = "exam_id")
-    private Exam exam;
-
     @Enumerated(EnumType.STRING)
-    private QUESTION_TYPE question_type;
+    private QUESTIONTYPE questionType;
 
-    public enum QUESTION_TYPE
+    public enum QUESTIONTYPE
     {
         ONE_CHOICE, MULTI_CHOICE
     }
 
-    @OneToMany
-    @JoinColumn(name = "answers")
-    private Set<Answer> answers;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "question_id")
+    private Set<Option> options;
+
 
 }

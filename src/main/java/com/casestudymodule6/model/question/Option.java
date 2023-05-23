@@ -5,9 +5,9 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "options")
 @Data
-public class Answer
+public class Option
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
