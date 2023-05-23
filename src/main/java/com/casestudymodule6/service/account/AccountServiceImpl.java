@@ -58,7 +58,7 @@ public class AccountServiceImpl implements IAccountService {
         return null;
     }
 
-    public Account login(String username, String password) {
+    public Account login(String username, String password,User user) {
         Account account = findByUsername(username);
         if (account != null && account.getPassword().equals(password)) {
             return account;

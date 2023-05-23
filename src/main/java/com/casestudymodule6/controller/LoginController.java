@@ -1,8 +1,7 @@
 package com.casestudymodule6.controller;
 
 import com.casestudymodule6.model.user.Account;
-import com.casestudymodule6.model.user.AccountDTO;
-import com.casestudymodule6.model.user.Role;
+import com.casestudymodule6.model.user.User;
 import com.casestudymodule6.service.account.AccountServiceImpl;
 import com.casestudymodule6.service.user.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,31 +31,20 @@ public class LoginController {
     }
 
 
-    //    @PostMapping("/login")
-//    public ResponseEntity<?> loginAccount(@RequestParam("username") String username, @RequestParam("password") String password) {
-//        Account account = accountService.login(username, password);
-//        if (account != null) {
+    @PostMapping("/login")
+    public ResponseEntity<?> loginAccount(@RequestBody Account account) {
+        String username = account.getUsername();
+        String password = account.getPassword();
+        User user=account.getUser();
+         account = accountService.login(username, password,user);
+        if (account != null) {
 //            Role.RoleType roleType = account.getRole().getName();
 //            if (roleType == Role.RoleType.ADMIN) {
 //                return new ResponseEntity<>(HttpStatus.OK);
 //            } else if (roleType == Role.RoleType.USER) {
-//                return new ResponseEntity<>("Welcome " + account.getUsername(),HttpStatus.OK);
+//                return new ResponseEntity<>("Welcome " + account.getUsername(), HttpStatus.OK);
 //            }
-//        }
-//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//    }
-    @PostMapping("/login")
-    public ResponseEntity<?> loginAccount(@RequestBody AccountDTO accountDTO) {
-        String username = accountDTO.getUsername();
-        String password = accountDTO.getPassword();
-        Account account = accountService.login(username, password);
-        if (account != null) {
-            Role.RoleType roleType = account.getRole().getName();
-            if (roleType == Role.RoleType.ADMIN) {
-                return new ResponseEntity<>(HttpStatus.OK);
-            } else if (roleType == Role.RoleType.USER) {
-                return new ResponseEntity<>("Welcome " + account.getUsername(), HttpStatus.OK);
-            }
+            return new ResponseEntity<>(account,HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
