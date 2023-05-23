@@ -43,9 +43,8 @@ public class LoginController {
             if (roleType == Role.RoleType.ADMIN) {
                 return new ResponseEntity<>(HttpStatus.OK);
             } else if (roleType == Role.RoleType.USER) {
-                return new ResponseEntity<>("Welcome " + account.getUsername(), HttpStatus.OK);
+                return new ResponseEntity<>(account, HttpStatus.OK);
             }
-            return new ResponseEntity<>(account,HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
