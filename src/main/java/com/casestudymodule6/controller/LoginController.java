@@ -1,6 +1,7 @@
 package com.casestudymodule6.controller;
 
 import com.casestudymodule6.model.user.Account;
+import com.casestudymodule6.model.user.Role;
 import com.casestudymodule6.model.user.User;
 import com.casestudymodule6.service.account.AccountServiceImpl;
 import com.casestudymodule6.service.user.UserServiceImpl;
@@ -38,12 +39,12 @@ public class LoginController {
         User user=account.getUser();
          account = accountService.login(username, password,user);
         if (account != null) {
-//            Role.RoleType roleType = account.getRole().getName();
-//            if (roleType == Role.RoleType.ADMIN) {
-//                return new ResponseEntity<>(HttpStatus.OK);
-//            } else if (roleType == Role.RoleType.USER) {
-//                return new ResponseEntity<>("Welcome " + account.getUsername(), HttpStatus.OK);
-//            }
+            Role.RoleType roleType = account.getRole().getName();
+            if (roleType == Role.RoleType.ADMIN) {
+                return new ResponseEntity<>(HttpStatus.OK);
+            } else if (roleType == Role.RoleType.USER) {
+                return new ResponseEntity<>("Welcome " + account.getUsername(), HttpStatus.OK);
+            }
             return new ResponseEntity<>(account,HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
