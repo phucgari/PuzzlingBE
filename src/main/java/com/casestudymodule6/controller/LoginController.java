@@ -50,7 +50,7 @@ public class LoginController {
     }
 
     @GetMapping("check/{username}")
-    public ResponseEntity<String> checkUserName(@PathVariable String username) {
+    public ResponseEntity<String> checkUserName(@RequestParam String username) {
         Optional<Account> account = Optional.ofNullable(accountService.findByUsername(username));
         if (account.isEmpty()){
             return new ResponseEntity<>(HttpStatus.OK);
