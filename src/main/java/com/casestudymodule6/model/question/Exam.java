@@ -17,8 +17,6 @@ public class Exam implements Serializable {
     private Long id;
     private String name;
 
-    private int number;
-
     private int time;
 
     private double passScore;
