@@ -17,18 +17,18 @@ public class CategoryController {
     @Autowired
     private ICategoryService categoryService;
 
-    @GetMapping("")
+    @GetMapping("/")
     public ResponseEntity<Iterable<Category>> getAllCategories() {
         List<Category> categories = (List<Category>) categoryService.findAll();
         if (categories.isEmpty()) return new ResponseEntity<> (HttpStatus.NOT_FOUND);
         return new ResponseEntity<> (categories, HttpStatus.OK);
     }
-    @PostMapping("/create")
+    @PostMapping("/")
     public ResponseEntity<Category> createNewCategory(@RequestBody Category category) {
         return new ResponseEntity<>(categoryService.save(category), HttpStatus.CREATED);
     }
 
-    @PutMapping("/edit/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Category> editCategory(@PathVariable Long id, @RequestBody Category category) {
         Optional<Category> categoryOptional = categoryService.findById(id);
         if (categoryOptional.isEmpty()) return new ResponseEntity<> (HttpStatus.NOT_FOUND);
@@ -36,7 +36,7 @@ public class CategoryController {
         return new ResponseEntity<>(categoryService.save(category), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Category> deleteCategory(@PathVariable Long id) {
         Optional<Category> categoryOptional = categoryService.findById(id);
         if (categoryOptional.isEmpty()) return new ResponseEntity<> (HttpStatus.NOT_FOUND);
