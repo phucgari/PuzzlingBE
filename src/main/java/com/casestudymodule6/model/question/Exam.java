@@ -6,6 +6,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalTime;
 import java.util.Set;
 
 @Entity
@@ -15,6 +16,14 @@ public class Exam implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    private int number;
+
+    private int time;
+
+    private double passScore;
+
+
     @ManyToOne
     @JoinColumn(name="category_id")
     private Category category;
@@ -24,4 +33,7 @@ public class Exam implements Serializable {
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
+
+
+
 }
