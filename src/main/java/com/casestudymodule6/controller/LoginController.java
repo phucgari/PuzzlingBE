@@ -33,20 +33,10 @@ public class LoginController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginAccount(@RequestBody Account account) {
-        String username = account.getUsername();
-        String password = account.getPassword();
-        User user=account.getUser();
-         account = accountService.login(username, password,user);
-        if (account != null) {
-            Role.RoleType roleType = account.getRole().getName();
-            if (roleType == Role.RoleType.ADMIN) {
-                return new ResponseEntity<>(HttpStatus.OK);
-            } else if (roleType == Role.RoleType.USER) {
-                return new ResponseEntity<>(account, HttpStatus.OK);
-            }
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<Account> loginAccount(@RequestBody Account account) {
+        Account checkAccount = accountService.findByUsername(account.getUsername());
+        if (checkAccount == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(checkAccount, HttpStatus.OK);
     }
 
     @GetMapping("/check")
