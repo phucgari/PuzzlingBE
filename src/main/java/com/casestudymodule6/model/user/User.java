@@ -12,6 +12,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     String avatar;
+    String name;
     String email;
     String phone;
     @Enumerated(EnumType.STRING)
