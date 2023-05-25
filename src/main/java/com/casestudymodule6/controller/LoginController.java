@@ -49,7 +49,7 @@ public class LoginController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("check/{username}")
+    @GetMapping("/check")
     public ResponseEntity<String> checkUserName(@RequestParam String username) {
         Optional<Account> account = Optional.ofNullable(accountService.findByUsername(username));
         if (account.isEmpty()){
