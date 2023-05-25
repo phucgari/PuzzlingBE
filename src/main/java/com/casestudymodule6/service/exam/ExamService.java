@@ -2,6 +2,7 @@ package com.casestudymodule6.service.exam;
 
 
 import com.casestudymodule6.model.question.Exam;
+import com.casestudymodule6.model.user.User;
 import com.casestudymodule6.repository.IExamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,7 +38,7 @@ public class ExamService implements IExamService
 
 
     @Override
-    public Iterable<Exam> findExamsByUsername(String username) {
-        return examRepository.findExamsByUsername(username);
+    public Iterable<Exam> findExamsByUser(User user) {
+        return examRepository.findExamsByUser(user);
     }
 }

@@ -1,6 +1,7 @@
 package com.casestudymodule6.controller;
 
 import com.casestudymodule6.model.question.Exam;
+import com.casestudymodule6.model.user.User;
 import com.casestudymodule6.service.exam.IExamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,9 +21,9 @@ public class ExamController
 
 
     @GetMapping("/list")
-    public ResponseEntity<List<Exam>> getAllExams(@RequestParam("username") String username)
+    public ResponseEntity<List<Exam>> getAllExams(@RequestParam User user)
     {
-        List<Exam> exams =(List<Exam>) examService.findExamsByUsername(username);
+        List<Exam> exams =(List<Exam>) examService.findExamsByUser(user);
         return new ResponseEntity<>(exams,HttpStatus.OK);
     }
 
