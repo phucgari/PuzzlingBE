@@ -43,6 +43,21 @@ public class QuestionService implements IQuestionService
             String category = searchQuestion.getCategory();
             String questionType = searchQuestion.getQuestionType();
             String level = searchQuestion.getLevel();
+            if (name != null && name.isEmpty()) {
+                name = null;
+            }
+            if (category != null && category.isEmpty()) {
+                category = null;
+            }
+            if (questionType != null && questionType.isEmpty()) {
+                questionType = null;
+            }
+            if (level != null && level.isEmpty()) {
+                level = null;
+            }
+            if (name == null && category == null && questionType == null && level == null) {
+                return questionRepository.findAll();
+            }
             return questionRepository.searchQuestions(name, category, questionType, level);
 
         }
