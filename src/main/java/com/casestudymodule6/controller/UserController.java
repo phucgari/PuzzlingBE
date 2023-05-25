@@ -1,6 +1,8 @@
 package com.casestudymodule6.controller;
 
+import com.casestudymodule6.model.user.Account;
 import com.casestudymodule6.model.user.User;
+import com.casestudymodule6.service.account.IAccountService;
 import com.casestudymodule6.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -16,6 +19,9 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private IAccountService accountService;
 
     @GetMapping("/")
     public ResponseEntity<Iterable<User>> getAllUsers() {
@@ -49,5 +55,19 @@ public class UserController {
     public ResponseEntity<User> viewUserDetail(@PathVariable Long id) {
         Optional<User> userOptional = userService.findById(id);
         return userOptional.map(user -> new ResponseEntity<>(user, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @PutMapping("/changePassword")
+    public ResponseEntity<Void> changePassword(@RequestBody Account account) {
+        accountService.save(account);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/check/{user}")
+    public ResponseEntity<String> checkUserName(@RequestParam String password, @PathVariable User user) {
+        if(Objects.equals(user.getAccount().getPassword(), password)) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
