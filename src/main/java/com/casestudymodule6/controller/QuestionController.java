@@ -16,7 +16,7 @@ import java.util.List;
 public class QuestionController {
     @Autowired
     private QuestionService questionService;
-    @GetMapping("/search")
+    @PostMapping ("/search")
     public ResponseEntity<List<Question>> searchQuestions(@RequestBody SearchQuestion searchQuestion) {
         List<Question> questions = questionService.searchAllFields(searchQuestion);
         return new ResponseEntity<>(questions, HttpStatus.OK);
