@@ -15,7 +15,7 @@ public class Answer implements Serializable
     private Long id;
 
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "option_id")
     private Option option;
 
