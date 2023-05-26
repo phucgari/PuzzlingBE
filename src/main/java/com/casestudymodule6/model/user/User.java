@@ -17,9 +17,6 @@ public class User {
     String phone;
     @Enumerated(EnumType.STRING)
     Gender gender;
-    @OneToOne(mappedBy = "user")
-    @JsonIgnore
-    private Account account;
     public enum Gender{
         MALE,FEMALE
     }
