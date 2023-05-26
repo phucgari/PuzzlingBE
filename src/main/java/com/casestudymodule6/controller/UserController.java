@@ -63,9 +63,9 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/check/{user}")
-    public ResponseEntity<String> checkUserName(@RequestParam String password, @PathVariable Account user) {
-        if(Objects.equals(user.getPassword(), password)) {
+    @GetMapping("/check/{account}")
+    public ResponseEntity<String> checkUserName(@RequestParam String password, @PathVariable Account account) {
+        if(Objects.equals(account.getPassword(), password)) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         return new ResponseEntity<>(HttpStatus.OK);
