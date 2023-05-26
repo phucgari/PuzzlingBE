@@ -13,9 +13,6 @@ import java.util.Optional;
 public class AccountServiceImpl implements IAccountService {
     @Autowired
     private IAccountRepository iAccountRepository;
-    @Autowired
-    private UserServiceImpl userService;
-
     @Override
     public Iterable<Account> findAll() {
         return iAccountRepository.findAll();
@@ -48,10 +45,7 @@ public class AccountServiceImpl implements IAccountService {
             save(account);
             Account savedAccount = findByUsername(username);
             if (account.getRole().equals(Role.RoleType.USER)) {
-                User user = new User();
-                user.setAccount(savedAccount);
-                user.setEmail(email);
-                userService.save(user);
+                iAccountRepository.save(savedAccount);
             }
             return account;
         }

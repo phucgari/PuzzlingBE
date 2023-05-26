@@ -33,8 +33,4 @@ public class UserServiceImpl implements IUserService {
     }
 
 
-    @Override
-    public Optional<User> findUserByUsername(String username) {
-        return userRepository.findUserByUsername(username);
-    }
 }
