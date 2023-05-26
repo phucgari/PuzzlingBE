@@ -1,7 +1,6 @@
 package com.casestudymodule6.model.record;
 
 import com.casestudymodule6.model.question.Exam;
-import com.casestudymodule6.model.user.Account;
 import com.casestudymodule6.model.user.User;
 import lombok.Data;
 
@@ -22,8 +21,8 @@ public class Record implements Serializable
 
 
     @ManyToOne
-    @JoinColumn(name = "account_id")
-    private Account account;
+    @JoinColumn(name = "user_id")
+    private User user;
 
 
     @ManyToOne
