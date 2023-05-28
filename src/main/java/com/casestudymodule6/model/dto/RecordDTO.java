@@ -10,8 +10,6 @@ import java.util.Set;
 @Data
 public class RecordDTO {
 
-    private Long id;
-
     private LocalDateTime submitTime;
 
     private User user;
