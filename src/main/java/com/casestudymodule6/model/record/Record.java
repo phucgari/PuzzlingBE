@@ -20,7 +20,7 @@ public class Record implements Serializable
 
     private LocalDateTime submitTime;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "record_id")
     private Set<RecordDetail> recordDetails;
 

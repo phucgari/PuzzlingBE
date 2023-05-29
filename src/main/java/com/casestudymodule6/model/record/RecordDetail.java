@@ -20,7 +20,7 @@ public class RecordDetail implements Serializable
     private Question question;
 
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "recordDetail_id")
     private Set<Answer> answers;
 

@@ -1,5 +1,6 @@
 package com.casestudymodule6.service.record;
 
+import com.casestudymodule6.model.question.Option;
 import com.casestudymodule6.model.question.Question;
 import com.casestudymodule6.model.record.Answer;
 import com.casestudymodule6.model.record.Record;
@@ -43,33 +44,18 @@ public class RecordService implements IRecordService
     @Override
     public int scoreSumOfUser(Iterable<RecordDetail> recordDetails)
     {
-        List<RecordDetail> recordDetailList = (List<RecordDetail>) recordDetails;
-
         int scoreOfUser = 0;
 
-        for (RecordDetail rs: recordDetailList)
+        Outer:for (RecordDetail rs: recordDetails)
         {
-            boolean checkAnswer = true;
             for (Answer answer: rs.getAnswers())
             {
-                if (answer.getOption().getStatus().equals(answer.getAnswerStatus()))
+                if (!answer.getOption().getStatus().equals(answer.getAnswerStatus()))
                 {
-                    switch (rs.getQuestion().getLevel())
-                    {
-                        case EASY -> scoreOfUser++;
-                        case MEDIUM -> scoreOfUser += 2;
-                        default -> scoreOfUser += 5;
-                    }
-                }
-                else
-                {
-                    checkAnswer = false;
+                    continue Outer;
                 }
             }
-            if (!checkAnswer)
-            {
-                break;
-            }
+            scoreOfUser+=rs.getQuestion().getLevel().getScore();
         }
         return scoreOfUser;
     }
