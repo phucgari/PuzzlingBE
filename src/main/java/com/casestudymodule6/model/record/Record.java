@@ -2,6 +2,7 @@ package com.casestudymodule6.model.record;
 
 import com.casestudymodule6.model.question.Exam;
 import com.casestudymodule6.model.user.User;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,11 +19,11 @@ public class Record implements Serializable
     private Long id;
 
 
-    private LocalDateTime submitTime;
+    private LocalDateTime time;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "record_id")
-    private Set<RecordDetail> recordDetails;
+    private Set<RecordDetail> recordDetail;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
