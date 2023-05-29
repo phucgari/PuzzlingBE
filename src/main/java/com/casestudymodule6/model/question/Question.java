@@ -10,7 +10,17 @@ import java.util.Set;
 @Data
 public class Question {
     public enum Level{
-        EASY,MEDIUM,HARD
+        EASY(1),MEDIUM(2),HARD(5);
+        private int score;
+
+        Level(int score)
+        {
+            this.score = score;
+        }
+
+        public int getScore() {
+            return score;
+        }
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

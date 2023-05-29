@@ -13,4 +13,9 @@ import java.util.Optional;
 public interface IRecordRepository extends JpaRepository<Record, Long>
 {
 
+    @Query(nativeQuery = true, value = "select * from quiz.record record join quiz.user u on u.id = record.user_id" +
+            " "+"join quiz.exam e on record.exam_id = e.id"+
+            " "+"where record.exam_id = :examId and record.user_id = :userId")
+    Optional<Record> findRecordByExamId(@Param("userId") Long userId,@Param("examId") Long examId);
+
 }

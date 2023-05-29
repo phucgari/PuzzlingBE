@@ -1,6 +1,5 @@
 package com.casestudymodule6.controller;
 
-import com.casestudymodule6.model.dto.RecordDTO;
 import com.casestudymodule6.model.record.Record;
 import com.casestudymodule6.service.exam.IExamService;
 import com.casestudymodule6.service.record.IRecordService;
@@ -8,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 @CrossOrigin("*")
 @RestController
@@ -22,17 +24,21 @@ public class RecordController
     private IRecordService recordService;
 
     @PostMapping("/createExamResult")
-    public ResponseEntity<Record> getExamResult(@RequestBody RecordDTO recordDTO)
+    public ResponseEntity<Record> getExamResult(@RequestBody Record record)
     {
-        Record record = new Record();
-        int scoreSumOfExam = examService.scoreSumOfExam(recordDTO.getExam().getId());
-        int scoreSumOfUser = recordService.scoreSumOfUser(recordDTO.getRecordDetais());
-        record.setExam(recordDTO.getExam());
+        LocalDateTime current=LocalDateTime.now();
+        int scoreSumOfExam = examService.scoreSumOfExam(record.getExam().getId());
+        int scoreSumOfUser = recordService.scoreSumOfUser(record.getRecordDetail());
         record.setExamPoint(scoreSumOfExam);
-        record.setUserPoint((scoreSumOfUser));
-        record.setUser(recordDTO.getUser());
-        record.setSubmitTime(recordDTO.getSubmitTime());
+        record.setUserPoint(scoreSumOfUser);
+        record.setTime(current);
         return new ResponseEntity<>(recordService.save(record),HttpStatus.OK);
+    }
+    @GetMapping("/watchExamResult/{userId}/{examId}")
+    public ResponseEntity<Record> watchExamResult(@PathVariable("userId") Long userId,@PathVariable("examId") Long examId)
+    {
+        Optional<Record> record = recordService.findRecordByExamId(userId, examId);
+        return new ResponseEntity<>(record.get(),HttpStatus.OK);
     }
 
 }

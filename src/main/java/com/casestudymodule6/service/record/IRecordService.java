@@ -4,8 +4,12 @@ import com.casestudymodule6.model.record.Record;
 import com.casestudymodule6.model.record.RecordDetail;
 import com.casestudymodule6.service.IGeneralService;
 
+import java.util.Optional;
+
 public interface IRecordService extends IGeneralService<Record>
 {
+
+    Optional<Record> findRecordByExamId(Long userId, Long examId);
 
     int scoreSumOfUser(Iterable<RecordDetail> recordDetails);
 
