@@ -32,7 +32,8 @@ public class RecordController
         record.setExamPoint(scoreSumOfExam);
         record.setUserPoint(scoreSumOfUser);
         record.setTime(current);
-        return new ResponseEntity<>(recordService.save(record),HttpStatus.OK);
+        recordService.save(record);
+        return new ResponseEntity<>(record,HttpStatus.OK);
     }
     @GetMapping("/watchExamResult/{userId}/{examId}")
     public ResponseEntity<Record> watchExamResult(@PathVariable("userId") Long userId,@PathVariable("examId") Long examId)
