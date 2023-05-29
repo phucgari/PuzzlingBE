@@ -32,5 +32,4 @@ public class RecordController
         record.setUserPoint(scoreSumOfUser);
         return new ResponseEntity<>(recordService.save(record),HttpStatus.OK);
     }
-
 }
