@@ -11,4 +11,6 @@ public interface IExamService extends IGeneralService<Exam>
 {
     Iterable<Exam> findExamsByUser(User user);
 
+    int scoreSumOfExam(Long id);
+
 }
