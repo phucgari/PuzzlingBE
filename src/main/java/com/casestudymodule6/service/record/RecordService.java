@@ -49,29 +49,28 @@ public class RecordService implements IRecordService
 
         for (RecordDetail rs: recordDetailList)
         {
+            boolean checkAnswer = true;
             for (Answer answer: rs.getAnswers())
             {
-                if (answer.getOption().getStatus().equals(answer.getAnswerStatus()) && answer.getOption().getStatus().equals("true"))
+                if (answer.getOption().getStatus().equals(answer.getAnswerStatus()))
                 {
-                    if (rs.getQuestion().getLevel() == Question.Level.EASY)
+                    switch (rs.getQuestion().getLevel())
                     {
-                        scoreOfUser++;
+                        case EASY -> scoreOfUser++;
+                        case MEDIUM -> scoreOfUser += 2;
+                        default -> scoreOfUser += 5;
                     }
-                    else if (rs.getQuestion().getLevel() == Question.Level.MEDIUM)
-                    {
-                        scoreOfUser+=2;
-                    }
-                    else
-                    {
-                        scoreOfUser+=5;
-                    }
-                    break;
                 }
-
+                else
+                {
+                    checkAnswer = false;
+                }
             }
-
+            if (!checkAnswer)
+            {
+                break;
+            }
         }
-
         return scoreOfUser;
     }
 

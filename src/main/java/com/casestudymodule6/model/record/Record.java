@@ -7,6 +7,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Data
@@ -19,6 +20,9 @@ public class Record implements Serializable
 
     private LocalDateTime submitTime;
 
+    @OneToMany
+    @JoinColumn(name = "record_id")
+    private Set<RecordDetail> recordDetails;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
