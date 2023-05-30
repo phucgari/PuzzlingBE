@@ -1,6 +1,7 @@
 package com.casestudymodule6.controller;
 
 import com.casestudymodule6.dto.LeaderDTO;
+import com.casestudymodule6.model.question.Exam;
 import com.casestudymodule6.model.record.Record;
 import com.casestudymodule6.service.exam.IExamService;
 import com.casestudymodule6.service.record.IRecordService;
@@ -37,6 +38,14 @@ public class RecordController
         recordService.save(record);
         return new ResponseEntity<>(record,HttpStatus.OK);
     }
+
+    @GetMapping("/infoRecord")
+    public ResponseEntity<Record> infoRecord(@RequestParam("recordId") Long recordId)
+    {
+        Optional<Record> optionalRecord = recordService.findById(recordId);
+        return new ResponseEntity<>(optionalRecord.get(),HttpStatus.OK);
+    }
+
     @GetMapping("/watchExamResult/{userId}/{examId}")
     public ResponseEntity<Record> watchExamResult(@PathVariable("userId") Long userId,@PathVariable("examId") Long examId)
     {
