@@ -1,5 +1,6 @@
 package com.casestudymodule6.service.record;
 
+import com.casestudymodule6.dto.LeaderDTO;
 import com.casestudymodule6.model.question.Option;
 import com.casestudymodule6.model.question.Question;
 import com.casestudymodule6.model.record.Answer;
@@ -62,6 +63,11 @@ public class RecordService implements IRecordService
             scoreOfUser+=rs.getQuestion().getLevel().getScore();
         }
         return scoreOfUser;
+    }
+
+    @Override
+    public List<LeaderDTO> getTop10MaxScore() {
+        return recordRepository.getTop10MaxScore();
     }
 
 
