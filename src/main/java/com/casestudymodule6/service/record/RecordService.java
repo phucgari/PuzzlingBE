@@ -66,9 +66,7 @@ public class RecordService implements IRecordService
     }
 
     @Override
-    public List<LeaderDTO> getTop10MaxScore() {
-        return recordRepository.getTop10MaxScore();
+    public List<LeaderDTO> findAllUserByExam(Long examId) {
+        return recordRepository.findAllUserByExam(examId);
     }
-
-
 }

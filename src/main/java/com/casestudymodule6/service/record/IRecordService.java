@@ -16,7 +16,7 @@ public interface IRecordService extends IGeneralService<Record>
     int scoreSumOfUser(Iterable<RecordDetail> recordDetails);
 
 
-    List<LeaderDTO> getTop10MaxScore();
+    List<LeaderDTO> findAllUserByExam(Long examId);
 
 
 

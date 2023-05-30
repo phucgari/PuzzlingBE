@@ -43,10 +43,10 @@ public class RecordController
         Optional<Record> record = recordService.findRecordByExamId(userId, examId);
         return new ResponseEntity<>(record.get(),HttpStatus.OK);
     }
-    @GetMapping("/leaderboard")
-    public ResponseEntity<List<LeaderDTO>> leaderboard()
+    @GetMapping("/leaderboard/{examId}")
+    public ResponseEntity<List<LeaderDTO>> leaderboard(@PathVariable("examId") Long examId)
     {
-        return new ResponseEntity<>(recordService.getTop10MaxScore(),HttpStatus.OK);
+        return new ResponseEntity<>(recordService.findAllUserByExam(examId),HttpStatus.OK);
     }
 
 }
