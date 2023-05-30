@@ -11,7 +11,6 @@ import java.util.Optional;
 public interface IRecordService extends IGeneralService<Record>
 {
 
-    Optional<Record> findRecordByExamId(Long userId, Long examId);
 
     int scoreSumOfUser(Iterable<RecordDetail> recordDetails);
 

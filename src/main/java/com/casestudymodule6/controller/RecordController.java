@@ -46,12 +46,6 @@ public class RecordController
         return new ResponseEntity<>(optionalRecord.get(),HttpStatus.OK);
     }
 
-    @GetMapping("/watchExamResult/{userId}/{examId}")
-    public ResponseEntity<Record> watchExamResult(@PathVariable("userId") Long userId,@PathVariable("examId") Long examId)
-    {
-        Optional<Record> record = recordService.findRecordByExamId(userId, examId);
-        return new ResponseEntity<>(record.get(),HttpStatus.OK);
-    }
     @GetMapping("/leaderboard/{examId}")
     public ResponseEntity<List<LeaderDTO>> leaderboard(@PathVariable("examId") Long examId)
     {

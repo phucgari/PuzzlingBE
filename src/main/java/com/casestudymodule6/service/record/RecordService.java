@@ -41,10 +41,6 @@ public class RecordService implements IRecordService
        recordRepository.deleteById(id);
     }
 
-    @Override
-    public Optional<Record> findRecordByExamId(Long userId, Long examId) {
-        return recordRepository.findRecordByExamId(userId, examId);
-    }
 
     @Override
     public int scoreSumOfUser(Iterable<RecordDetail> recordDetails)
