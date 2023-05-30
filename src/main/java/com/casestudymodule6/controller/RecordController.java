@@ -39,7 +39,7 @@ public class RecordController
         return new ResponseEntity<>(record,HttpStatus.OK);
     }
 
-    @GetMapping("/infoRecord/{recordId}")
+    @GetMapping("/{recordId}")
     public ResponseEntity<Record> infoRecord(@PathVariable("recordId") Long recordId)
     {
         Optional<Record> optionalRecord = recordService.findById(recordId);
