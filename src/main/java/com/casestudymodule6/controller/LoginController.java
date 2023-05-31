@@ -35,8 +35,22 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<Account> loginAccount(@RequestBody Account account) {
         Account checkAccount = accountService.findByUsername(account.getUsername());
-        if (checkAccount == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(checkAccount, HttpStatus.OK);
+        if (checkAccount == null)
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        else
+        {
+            if (checkAccount.getPassword().equals(account.getPassword()))
+            {
+                return new ResponseEntity<>(checkAccount, HttpStatus.OK);
+            }
+            else
+            {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        }
+
     }
 
     @GetMapping("/check")
