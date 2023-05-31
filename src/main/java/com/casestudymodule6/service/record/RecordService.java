@@ -1,8 +1,6 @@
 package com.casestudymodule6.service.record;
 
-import com.casestudymodule6.dto.LeaderDTO;
-import com.casestudymodule6.model.question.Option;
-import com.casestudymodule6.model.question.Question;
+import com.casestudymodule6.model.dto.LeaderDTO;
 import com.casestudymodule6.model.record.Answer;
 import com.casestudymodule6.model.record.Record;
 import com.casestudymodule6.model.record.RecordDetail;

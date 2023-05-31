@@ -1,7 +1,6 @@
 package com.casestudymodule6.controller;
 
-import com.casestudymodule6.dto.LeaderDTO;
-import com.casestudymodule6.model.question.Exam;
+import com.casestudymodule6.model.dto.LeaderDTO;
 import com.casestudymodule6.model.record.Record;
 import com.casestudymodule6.service.exam.IExamService;
 import com.casestudymodule6.service.record.IRecordService;

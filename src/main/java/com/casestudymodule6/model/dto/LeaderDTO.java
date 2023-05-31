@@ -1,4 +1,4 @@
-package com.casestudymodule6.dto;
+package com.casestudymodule6.model.dto;
 
 public interface LeaderDTO
 {
