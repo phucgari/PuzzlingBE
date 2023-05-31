@@ -14,6 +14,6 @@ public interface IExamService extends IGeneralService<Exam>
     int scoreSumOfExam(Long id);
 
 
-    Optional<Exam> findRandomExam();
+    Exam findRandomExam();
 
 }

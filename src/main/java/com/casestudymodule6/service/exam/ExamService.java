@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.Set;
 
 @Service
@@ -58,9 +59,16 @@ public class ExamService implements IExamService
     }
 
     @Override
-    public Optional<Exam> findRandomExam()
+    public Exam findRandomExam()
     {
-        List<Exam> examList = (List<Exam>)findAll();
-        return Optional.empty();
+        Random random = new Random();
+        List<Exam> examList = (List<Exam>) findAll();
+        Exam exam = examList.get(random.nextInt(examList.size()));
+        if (exam.getQuestions().size() >= 5)
+        {
+            return exam;
+        }
+        return null;
     }
+
 }
