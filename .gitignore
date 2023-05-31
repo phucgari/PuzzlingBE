@@ -32,9 +32,11 @@ out/
 /dist/
 /nbdist/
 /.nb-gradle/
+/local.env
 
 ### VS Code ###
 .vscode/
 
 /huy.env
 /huy2.env
+/son.env
