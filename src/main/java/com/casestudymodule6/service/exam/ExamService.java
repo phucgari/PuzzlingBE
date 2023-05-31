@@ -9,6 +9,7 @@ import com.casestudymodule6.repository.IQuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -54,5 +55,12 @@ public class ExamService implements IExamService
     {
         Set<Question> questions = questionRepository.findQuestionByExamId(examId);
         return questions.stream().mapToInt(question -> question.getLevel().getScore()).sum();
+    }
+
+    @Override
+    public Optional<Exam> findRandomExam()
+    {
+        List<Exam> examList = (List<Exam>)findAll();
+        return Optional.empty();
     }
 }
