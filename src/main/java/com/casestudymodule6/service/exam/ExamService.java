@@ -9,7 +9,9 @@ import com.casestudymodule6.repository.IQuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.Set;
 
 @Service
@@ -55,4 +57,18 @@ public class ExamService implements IExamService
         Set<Question> questions = questionRepository.findQuestionByExamId(examId);
         return questions.stream().mapToInt(question -> question.getLevel().getScore()).sum();
     }
+
+    @Override
+    public Exam findRandomExam()
+    {
+        Random random = new Random();
+        List<Exam> examList = (List<Exam>) findAll();
+        Exam exam = examList.get(random.nextInt(examList.size()));
+        if (exam.getQuestions().size() >= 5)
+        {
+            return exam;
+        }
+        return null;
+    }
+
 }

@@ -1,7 +1,6 @@
 package com.casestudymodule6.service.record;
 
-import com.casestudymodule6.model.question.Option;
-import com.casestudymodule6.model.question.Question;
+import com.casestudymodule6.model.dto.LeaderDTO;
 import com.casestudymodule6.model.record.Answer;
 import com.casestudymodule6.model.record.Record;
 import com.casestudymodule6.model.record.RecordDetail;
@@ -40,10 +39,6 @@ public class RecordService implements IRecordService
        recordRepository.deleteById(id);
     }
 
-    @Override
-    public Optional<Record> findRecordByExamId(Long userId, Long examId) {
-        return recordRepository.findRecordByExamId(userId, examId);
-    }
 
     @Override
     public int scoreSumOfUser(Iterable<RecordDetail> recordDetails)
@@ -64,5 +59,8 @@ public class RecordService implements IRecordService
         return scoreOfUser;
     }
 
-
+    @Override
+    public List<LeaderDTO> findAllUserByExam(Long examId) {
+        return recordRepository.findAllUserByExam(examId);
+    }
 }

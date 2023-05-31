@@ -1,5 +1,6 @@
 package com.casestudymodule6.controller;
 
+import com.casestudymodule6.model.dto.LeaderDTO;
 import com.casestudymodule6.model.record.Record;
 import com.casestudymodule6.service.exam.IExamService;
 import com.casestudymodule6.service.record.IRecordService;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin("*")
@@ -32,13 +34,21 @@ public class RecordController
         record.setExamPoint(scoreSumOfExam);
         record.setUserPoint(scoreSumOfUser);
         record.setTime(current);
-        return new ResponseEntity<>(recordService.save(record),HttpStatus.OK);
+        recordService.save(record);
+        return new ResponseEntity<>(record,HttpStatus.OK);
     }
-    @GetMapping("/watchExamResult/{userId}/{examId}")
-    public ResponseEntity<Record> watchExamResult(@PathVariable("userId") Long userId,@PathVariable("examId") Long examId)
+
+    @GetMapping("/{recordId}")
+    public ResponseEntity<Record> infoRecord(@PathVariable("recordId") Long recordId)
     {
-        Optional<Record> record = recordService.findRecordByExamId(userId, examId);
-        return new ResponseEntity<>(record.get(),HttpStatus.OK);
+        Optional<Record> optionalRecord = recordService.findById(recordId);
+        return new ResponseEntity<>(optionalRecord.get(),HttpStatus.OK);
+    }
+
+    @GetMapping("/leaderboard/{examId}")
+    public ResponseEntity<List<LeaderDTO>> leaderboard(@PathVariable("examId") Long examId)
+    {
+        return new ResponseEntity<>(recordService.findAllUserByExam(examId),HttpStatus.OK);
     }
 
 }

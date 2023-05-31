@@ -56,5 +56,18 @@ public class ExamController
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/randomExam")
+    public ResponseEntity<Exam> randomExam()
+    {
+        Exam exam = examService.findRandomExam();
 
+        if (exam == null)
+        {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        else
+        {
+            return new ResponseEntity<>(exam,HttpStatus.OK);
+        }
+    }
 }
