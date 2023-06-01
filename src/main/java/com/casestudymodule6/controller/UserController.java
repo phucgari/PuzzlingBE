@@ -1,5 +1,6 @@
 package com.casestudymodule6.controller;
 
+import com.casestudymodule6.model.dto.ChangePasswordDTO;
 import com.casestudymodule6.model.user.Account;
 import com.casestudymodule6.model.user.User;
 import com.casestudymodule6.service.account.IAccountService;
@@ -52,22 +53,37 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> viewUserDetail(@PathVariable Long id) {
+    public ResponseEntity<User> viewUserDetail(@PathVariable("id") Long id) {
         Optional<User> userOptional = userService.findById(id);
         return userOptional.map(user -> new ResponseEntity<>(user, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PutMapping("/changePassword")
-    public ResponseEntity<Void> changePassword(@RequestBody Account account) {
-        accountService.save(account);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @PutMapping("/changePassword/{accountId}")
+    public ResponseEntity<Void> changePassword(@PathVariable("accountId") Long accountId, @RequestBody ChangePasswordDTO changePasswordDTO)
+    {
+        Optional<Account> account = accountService.findById(accountId);
+        if (account.get().getPassword().equals(changePasswordDTO.getOldPassword()))
+        {
+            if (changePasswordDTO.getConfirmPassword().equals(changePasswordDTO.getNewPassword()))
+            {
+                account.get().setPassword(changePasswordDTO.getNewPassword());
+                accountService.save(account.get());
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+            else
+            {
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.CONFLICT);
+
     }
 
     @GetMapping("/check/{account}")
     public ResponseEntity<String> checkUserName(@RequestParam String password, @PathVariable Account account) {
         if(Objects.equals(account.getPassword(), password)) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 }

@@ -3,6 +3,7 @@ package com.casestudymodule6.model.question;
 import com.casestudymodule6.model.user.User;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,8 +20,8 @@ public class Exam implements Serializable {
 
     private int time;
 
-    private double passScore;
-
+    @Range(min = 0, max = 100)
+    private int passScore;
 
     @ManyToOne
     @JoinColumn(name="category_id")
