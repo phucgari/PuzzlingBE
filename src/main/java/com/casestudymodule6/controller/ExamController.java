@@ -7,6 +7,7 @@ import com.casestudymodule6.service.exam.IExamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,6 +43,7 @@ public class ExamController
         return new ResponseEntity<>(examService.save(exam),HttpStatus.CREATED);
     }
     @PutMapping("/update")
+    @PreAuthorize("#authorizationEvaluator.canUpdateThisExam(examId)")
     public ResponseEntity<Exam> updateExam(@RequestParam("examId") Long examId, @RequestBody Exam exam)
     {
         Optional<Exam> optionalExam = examService.findById(examId);
@@ -51,6 +53,7 @@ public class ExamController
         return new ResponseEntity<>(examService.save(optionalExam.get()),HttpStatus.OK);
     }
     @DeleteMapping("/delete")
+    @PreAuthorize("#authorizationEvaluator.canUpdateThisExam(examId)")
     public ResponseEntity<Exam> deleteExam(@RequestParam("examId") Long examId)
     {
         examService.remove(examId);
