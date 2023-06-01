@@ -8,6 +8,7 @@ import com.casestudymodule6.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,32 +25,13 @@ public class UserController {
     @Autowired
     private IAccountService accountService;
 
-    @GetMapping("/")
-    public ResponseEntity<Iterable<User>> getAllUsers() {
-        List<User> users = (List<User>) userService.findAll();
-        if (users.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(users, HttpStatus.OK);
-    }
-
-    @PostMapping("/")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
-    }
-
     @PutMapping("/{id}")
+    @PreAuthorize("@authorizationEvaluator.canUpdateThisUser(#id,user)")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
         Optional<User> userOptional = userService.findById(id);
         if (userOptional.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         user.setId(userOptional.get().getId());
         return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<User> deleteUser(@PathVariable Long id) {
-        Optional<User> userOptional = userService.findById(id);
-        if (userOptional.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        userService.remove(id);
-        return new ResponseEntity<>(userOptional.get(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -59,6 +41,7 @@ public class UserController {
     }
 
     @PutMapping("/changePassword/{accountId}")
+    @PreAuthorize("@authorizationEvaluator.canChangePassword(#accountId)")
     public ResponseEntity<Void> changePassword(@PathVariable("accountId") Long accountId, @RequestBody ChangePasswordDTO changePasswordDTO)
     {
         Optional<Account> account = accountService.findById(accountId);
@@ -88,4 +71,41 @@ public class UserController {
         }
         return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
+
+    @GetMapping("/checkByEmail/{userId}")
+    public ResponseEntity<String> checkUsernameByEmail(@PathVariable("userId") User user)
+    {
+        User checkUserByEmail = userService.findUserByEmail(user.getEmail());
+
+        if (checkUserByEmail != null)
+        {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        else
+        {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }
+    @GetMapping("/checkByPhone/{userId}")
+    public ResponseEntity<String> checkUsernameByPhone(@PathVariable("userId") User user)
+    {
+        User checkUserByPhone = userService.findUserByPhone(user.getPhone());
+
+        if (checkUserByPhone != null)
+        {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        else
+        {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }
+
+
+
+
+
+
+
+
 }
