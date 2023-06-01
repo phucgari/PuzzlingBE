@@ -80,13 +80,8 @@ public class UserController {
     }
 
     @GetMapping("/check/{account}")
-    public ResponseEntity<String> checkUser(@RequestParam String password, @PathVariable Account account)
+    public ResponseEntity<String> checkUsername(@RequestParam String password, @PathVariable Account account)
     {
-        User user = userService.findUserByEmail(account.getUser().getEmail());
-        if (user != null)
-        {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
         if(Objects.equals(account.getPassword(), password))
         {
             return new ResponseEntity<>(HttpStatus.OK);

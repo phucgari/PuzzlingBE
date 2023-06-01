@@ -37,4 +37,9 @@ public class UserServiceImpl implements IUserService {
     public User findUserByEmail(String email) {
         return userRepository.findUserByEmail(email);
     }
+
+    @Override
+    public User findUserByPhone(String phone) {
+        return userRepository.findUserByPhone(phone);
+    }
 }
