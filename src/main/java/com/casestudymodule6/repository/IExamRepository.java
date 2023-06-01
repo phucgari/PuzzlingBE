@@ -4,6 +4,7 @@ import com.casestudymodule6.model.question.Category;
 import com.casestudymodule6.model.question.Exam;
 import com.casestudymodule6.model.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -14,6 +15,7 @@ public interface IExamRepository extends JpaRepository<Exam, Long>
       Iterable<Exam> findExamsByCategoryAndUser(Category category, User user);
 
 
+      @Query("select exam from Exam exam where exam.category = :category and exam.questions.size >= 5")
       Iterable<Exam> findExamsByCategory(Category category);
 
 
