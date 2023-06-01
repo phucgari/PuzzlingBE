@@ -14,8 +14,11 @@ import java.util.List;
 public interface IRecordRepository extends JpaRepository<Record, Long>
 {
 
-    @Query(nativeQuery = true, value = "select account.username as 'username',Max((record.user_point / record.exam_point) * 100) as 'score' from quiz.record record join quiz.user u on u.id = record.user_id" +" "+
-            "join quiz.account account on account.user_id = u.id where record.exam_id = :examId group by account.username order by score desc")
-    List<LeaderDTO> findAllUserByExam(@Param("examId") Long examId);
+//    @Query(nativeQuery = true, value = "select account.username as 'username',Max((record.user_point / record.exam_point) * 100) as 'score' from quiz.record record join quiz.user u on u.id = record.user_id" +" "+
+//            "join quiz.account account on account.user_id = u.id where record.exam_id = :examId group by account.username order by score desc")
+//    List<LeaderDTO> findAllUserByExam(@Param("examId") Long examId);
+@Query(nativeQuery = true, value = "select account.username as 'username',(record.user_point / record.exam_point) * 100 as 'score' from quiz.record record join quiz.user u on u.id = record.user_id" +" "+
+        "join quiz.account account on account.user_id = u.id where record.exam_id = :examId order by score desc")
+List<LeaderDTO> findAllUserByExam(@Param("examId") Long examId);
 
 }
