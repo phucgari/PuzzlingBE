@@ -1,5 +1,6 @@
 package com.casestudymodule6.controller;
 
+import com.casestudymodule6.model.question.Category;
 import com.casestudymodule6.model.question.Exam;
 import com.casestudymodule6.model.user.User;
 import com.casestudymodule6.service.exam.IExamService;
@@ -55,6 +56,35 @@ public class ExamController
         examService.remove(examId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/searchExamsByCategoryAndUser")
+    public ResponseEntity<List<Exam>> searchExamsByCategoryAndUser(@RequestParam("categoriesId") Category category, @RequestParam("userId") User user)
+    {
+        List<Exam> exams = (List<Exam>) examService.findExamsByCategoryAndUser(category, user);
+        if (exams.size() == 0)
+        {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        else
+        {
+            return new ResponseEntity<>(exams,HttpStatus.OK);
+        }
+    }
+    @GetMapping("/searchExamsByCategory")
+    public ResponseEntity<List<Exam>> searchExamsByCategory(@RequestParam("categoriesId") Category category)
+    {
+         List<Exam> exams = (List<Exam>)examService.findExamsByCategory(category);
+         if (exams.size() == 0)
+         {
+             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+         }
+         else
+         {
+             return new ResponseEntity<>(exams,HttpStatus.OK);
+         }
+
+    }
+
 
     @GetMapping("/randomExam")
     public ResponseEntity<Exam> randomExam()

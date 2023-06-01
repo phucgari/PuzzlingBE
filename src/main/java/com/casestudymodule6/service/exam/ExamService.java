@@ -1,6 +1,7 @@
 package com.casestudymodule6.service.exam;
 
 
+import com.casestudymodule6.model.question.Category;
 import com.casestudymodule6.model.question.Exam;
 import com.casestudymodule6.model.question.Question;
 import com.casestudymodule6.model.user.User;
@@ -49,6 +50,16 @@ public class ExamService implements IExamService
     @Override
     public Iterable<Exam> findExamsByUser(User user) {
         return examRepository.findExamsByUser(user);
+    }
+
+    @Override
+    public Iterable<Exam> findExamsByCategoryAndUser(Category category, User user) {
+        return examRepository.findExamsByCategoryAndUser(category,user);
+    }
+
+    @Override
+    public Iterable<Exam> findExamsByCategory(Category category) {
+        return examRepository.findExamsByCategory(category);
     }
 
     @Override
