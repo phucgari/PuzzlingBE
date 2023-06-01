@@ -19,5 +19,4 @@ public interface IExamRepository extends JpaRepository<Exam, Long>
       Iterable<Exam> findExamsRandomByCategory(Category category);
 
 
-      Iterable<Exam> findExamsByCategory(Category category);
 }
