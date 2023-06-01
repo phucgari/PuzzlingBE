@@ -1,6 +1,5 @@
 package com.casestudymodule6.security;
 
-import com.casestudymodule6.model.dto.ChangePasswordDTO;
 import com.casestudymodule6.model.question.Exam;
 import com.casestudymodule6.model.user.Account;
 import com.casestudymodule6.model.user.User;
@@ -34,8 +33,8 @@ public class AuthorizationEvaluator {
         Account accountFromUser=accountService.findByUser(user);
         User userFromUserId=userService.findById(userId).get();
         Account accountFromUserId=accountService.findByUser(userFromUserId);
-        List<String> stringList=List.of(a.getName(),accountFromUser.getUsername(),accountFromUserId.getUsername());
-        return stringList.stream().distinct().count()==1;
+        return a.getName().equals(accountFromUser.getUsername())&&
+                accountFromUser.getUsername().equals(accountFromUserId.getUsername());
     }
     public boolean canChangePassword(Long accountId){
         Authentication a= SecurityContextHolder.getContext().getAuthentication();
