@@ -58,6 +58,11 @@ public class ExamService implements IExamService
     }
 
     @Override
+    public Iterable<Exam> findExamsRandomByCategory(Category category) {
+        return examRepository.findExamsRandomByCategory(category);
+    }
+
+    @Override
     public Iterable<Exam> findExamsByCategory(Category category) {
         return examRepository.findExamsByCategory(category);
     }

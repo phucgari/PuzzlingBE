@@ -14,11 +14,14 @@ public interface IExamService extends IGeneralService<Exam>
 
     Iterable<Exam> findExamsByCategoryAndUser(Category category, User user);
 
+    Iterable<Exam> findExamsRandomByCategory(Category category);
+
     Iterable<Exam> findExamsByCategory(Category category);
 
     int scoreSumOfExam(Long id);
 
 
     Exam findRandomExam();
+
 
 }

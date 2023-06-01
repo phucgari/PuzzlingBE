@@ -4,6 +4,7 @@ import com.casestudymodule6.model.dto.LeaderDTO;
 import com.casestudymodule6.model.record.Answer;
 import com.casestudymodule6.model.record.Record;
 import com.casestudymodule6.model.record.RecordDetail;
+import com.casestudymodule6.model.user.User;
 import com.casestudymodule6.repository.IRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,4 +64,11 @@ public class RecordService implements IRecordService
     public List<LeaderDTO> findAllUserByExam(Long examId) {
         return recordRepository.findAllUserByExam(examId);
     }
+
+    @Override
+    public Iterable<Record> findRecordByUser(User user) {
+        return recordRepository.findRecordByUser(user);
+    }
+
+
 }

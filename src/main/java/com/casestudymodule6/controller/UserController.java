@@ -63,10 +63,49 @@ public class UserController {
     }
 
     @GetMapping("/check/{account}")
-    public ResponseEntity<String> checkUserName(@RequestParam String password, @PathVariable Account account) {
-        if(Objects.equals(account.getPassword(), password)) {
+    public ResponseEntity<String> checkUsername(@RequestParam String password, @PathVariable Account account)
+    {
+        if(Objects.equals(account.getPassword(), password))
+        {
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
+
+    @GetMapping("/checkByEmail/{userId}")
+    public ResponseEntity<String> checkUsernameByEmail(@PathVariable("userId") User user)
+    {
+        User checkUserByEmail = userService.findUserByEmail(user.getEmail());
+
+        if (checkUserByEmail != null)
+        {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        else
+        {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }
+    @GetMapping("/checkByPhone/{userId}")
+    public ResponseEntity<String> checkUsernameByPhone(@PathVariable("userId") User user)
+    {
+        User checkUserByPhone = userService.findUserByPhone(user.getPhone());
+
+        if (checkUserByPhone != null)
+        {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        else
+        {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }
+
+
+
+
+
+
+
+
 }
