@@ -43,7 +43,7 @@ public class ExamController
         return new ResponseEntity<>(examService.save(exam),HttpStatus.CREATED);
     }
     @PutMapping("/update")
-    @PreAuthorize("#authorizationEvaluator.canUpdateThisExam(examId)")
+    @PreAuthorize("@authorizationEvaluator.canUpdateThisExam(#examId)")
     public ResponseEntity<Exam> updateExam(@RequestParam("examId") Long examId, @RequestBody Exam exam)
     {
         Optional<Exam> optionalExam = examService.findById(examId);
@@ -53,7 +53,7 @@ public class ExamController
         return new ResponseEntity<>(examService.save(optionalExam.get()),HttpStatus.OK);
     }
     @DeleteMapping("/delete")
-    @PreAuthorize("#authorizationEvaluator.canUpdateThisExam(examId)")
+    @PreAuthorize("@authorizationEvaluator.canUpdateThisExam(#examId)")
     public ResponseEntity<Exam> deleteExam(@RequestParam("examId") Long examId)
     {
         examService.remove(examId);

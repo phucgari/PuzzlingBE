@@ -10,7 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
     @Bean
@@ -19,11 +18,11 @@ public class SecurityConfig {
     }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.cors().and().httpBasic()
+        return http.cors().and().csrf().disable().httpBasic()
                 .and().authorizeRequests().antMatchers(
                         "/puzzling/exam/delete",
                         "/puzzling/exam/update",
-                        "/puzzling/users/*"
+                        "/puzzling/users/**"
                 ).authenticated()
                 .and()
                 .build();

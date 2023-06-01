@@ -26,7 +26,7 @@ public class UserController {
     private IAccountService accountService;
 
     @PutMapping("/{id}")
-    @PreAuthorize("#authorizationEvaluator.canUpdateThisUser(id,user)")
+    @PreAuthorize("@authorizationEvaluator.canUpdateThisUser(#id,user)")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
         Optional<User> userOptional = userService.findById(id);
         if (userOptional.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -41,7 +41,7 @@ public class UserController {
     }
 
     @PutMapping("/changePassword/{accountId}")
-    @PreAuthorize("#authorizationEvaluator.canChangePassword(accountId)")
+    @PreAuthorize("@authorizationEvaluator.canChangePassword(#accountId)")
     public ResponseEntity<Void> changePassword(@PathVariable("accountId") Long accountId, @RequestBody ChangePasswordDTO changePasswordDTO)
     {
         Optional<Account> account = accountService.findById(accountId);
