@@ -19,8 +19,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.httpBasic()
-                .and().authorizeRequests().antMatchers("/puzzling/*").permitAll()
-                .and().authorizeRequests().anyRequest().authenticated()
+                .and().authorizeRequests().antMatchers(
+                        "/puzzling/exam/delete",
+                        "/puzzling/exam/update",
+                        "/puzzling/users"
+                ).authenticated()
                 .and()
                 .build();
     }
