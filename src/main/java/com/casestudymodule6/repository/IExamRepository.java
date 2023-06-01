@@ -16,7 +16,8 @@ public interface IExamRepository extends JpaRepository<Exam, Long>
 
 
       @Query("select exam from Exam exam where exam.category = :category and exam.questions.size >= 5")
+      Iterable<Exam> findExamsRandomByCategory(Category category);
+
+
       Iterable<Exam> findExamsByCategory(Category category);
-
-
 }

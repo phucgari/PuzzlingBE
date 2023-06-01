@@ -63,7 +63,7 @@ public class RecordController
         }
         else
         {
-            return new ResponseEntity<>(records,HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(records,HttpStatus.OK);
         }
     }
 
