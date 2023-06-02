@@ -26,7 +26,7 @@ public class UserController {
     private IAccountService accountService;
 
     @PutMapping("/{id}")
-    @PreAuthorize("@authorizationEvaluator.canUpdateThisUser(#id,user)")
+    @PreAuthorize("@authorizationEvaluator.canUpdateThisUser(#id,#user)")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
         Optional<User> userOptional = userService.findById(id);
         if (userOptional.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -67,19 +67,26 @@ public class UserController {
     {
         if(Objects.equals(account.getPassword(), password))
         {
-            return new ResponseEntity<>(HttpStatus.OK);
+            return ResponseEntity.ok("OK");
         }
-        return new ResponseEntity<>(HttpStatus.CONFLICT);
+        return ResponseEntity.ok("NO");
     }
     @GetMapping("/checkEmail/{user}")
     public ResponseEntity<String> checkEmail(@RequestParam String email,@PathVariable User user){
+        if(email.equals(user.getEmail()))
+            return ResponseEntity.ok("OK");
         Optional<User> optionalUser=userService.findUserByEmail(email);
-        if(optionalUser.isEmpty()){
+        if(optionalUser.isEmpty())
             return ResponseEntity.ok("OK");
-        }
-        if(Objects.equals(optionalUser.get().getEmail(),user.getEmail())){
+        return ResponseEntity.ok("NO");
+    }
+    @GetMapping("/checkPhone/{user}")
+    public ResponseEntity<String> checkPhone(@RequestParam String phone,@PathVariable User user){
+        if(phone.equals(user.getPhone()))
             return ResponseEntity.ok("OK");
-        }
+        Optional<User> optionalUser=userService.findUserByPhone(phone);
+        if(optionalUser.isEmpty())
+            return ResponseEntity.ok("OK");
         return ResponseEntity.ok("NO");
     }
 }
