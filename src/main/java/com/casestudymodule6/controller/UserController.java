@@ -63,7 +63,7 @@ public class UserController {
     }
 
     @GetMapping("/check/{account}")
-    public ResponseEntity<String> checkUsername(@RequestParam String password, @PathVariable Account account)
+    public ResponseEntity<String> checkPassword(@RequestParam String password, @PathVariable Account account)
     {
         if(Objects.equals(account.getPassword(), password))
         {
@@ -71,41 +71,15 @@ public class UserController {
         }
         return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
-
-    @GetMapping("/checkByEmail/{userId}")
-    public ResponseEntity<String> checkUsernameByEmail(@PathVariable("userId") User user)
-    {
-        User checkUserByEmail = userService.findUserByEmail(user.getEmail());
-
-        if (checkUserByEmail != null)
-        {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+    @GetMapping("/checkEmail/{user}")
+    public ResponseEntity<String> checkEmail(@RequestParam String email,@PathVariable User user){
+        Optional<User> optionalUser=userService.findUserByEmail(email);
+        if(optionalUser.isEmpty()){
+            return ResponseEntity.ok("OK");
         }
-        else
-        {
-            return new ResponseEntity<>(HttpStatus.OK);
+        if(Objects.equals(optionalUser.get().getEmail(),user.getEmail())){
+            return ResponseEntity.ok("OK");
         }
+        return ResponseEntity.ok("NO");
     }
-    @GetMapping("/checkByPhone/{userId}")
-    public ResponseEntity<String> checkUsernameByPhone(@PathVariable("userId") User user)
-    {
-        User checkUserByPhone = userService.findUserByPhone(user.getPhone());
-
-        if (checkUserByPhone != null)
-        {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
-        else
-        {
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-    }
-
-
-
-
-
-
-
-
 }
