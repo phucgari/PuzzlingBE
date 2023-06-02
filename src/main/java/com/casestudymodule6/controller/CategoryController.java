@@ -23,6 +23,10 @@ public class CategoryController {
         if (categories.isEmpty()) return new ResponseEntity<> (HttpStatus.NOT_FOUND);
         return new ResponseEntity<> (categories, HttpStatus.OK);
     }
+    @GetMapping("/{category}")
+    public ResponseEntity<Category> getCategoryById(@PathVariable Category category) {
+        return ResponseEntity.ok(category);
+    }
     @PostMapping("/")
     public ResponseEntity<Category> createNewCategory(@RequestBody Category category) {
         return new ResponseEntity<>(categoryService.save(category), HttpStatus.CREATED);

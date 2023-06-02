@@ -63,11 +63,6 @@ public class ExamService implements IExamService
     }
 
     @Override
-    public Iterable<Exam> findExamsByCategory(Category category) {
-        return examRepository.findExamsByCategory(category);
-    }
-
-    @Override
     public int scoreSumOfExam(Long examId)
     {
         Set<Question> questions = questionRepository.findQuestionByExamId(examId);

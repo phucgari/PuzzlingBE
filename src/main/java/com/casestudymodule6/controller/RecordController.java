@@ -50,7 +50,7 @@ public class RecordController
     @GetMapping("/leaderboard/{examId}")
     public ResponseEntity<List<LeaderDTO>> leaderboard(@PathVariable("examId") Long examId)
     {
-        return new ResponseEntity<>(recordService.findAllUserByExam(examId),HttpStatus.OK);
+        return new ResponseEntity<>(recordService.findAllRecordByExam(examId),HttpStatus.OK);
     }
 
     @GetMapping("/findRecordByUser/{userId}")
