@@ -31,6 +31,10 @@ public class LoginController {
         }
     }
 
+    @GetMapping("{account}")
+    public ResponseEntity<Account> getAccountById(@PathVariable Account account) {
+        return ResponseEntity.ok(account);
+    }
 
     @PostMapping("/login")
     public ResponseEntity<Account> loginAccount(@RequestBody Account account) {
