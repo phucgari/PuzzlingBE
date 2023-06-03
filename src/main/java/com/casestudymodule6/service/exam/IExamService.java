@@ -16,8 +16,6 @@ public interface IExamService extends IGeneralService<Exam>
 
     Iterable<Exam> findExamsRandomByCategory(Category category);
 
-    Iterable<Exam> findExamsByCategory(Category category);
-
     int scoreSumOfExam(Long id);
 
 
