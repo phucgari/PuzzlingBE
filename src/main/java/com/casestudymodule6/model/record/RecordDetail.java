@@ -17,7 +17,7 @@ public class RecordDetail implements Serializable
 
     @ManyToOne
     @JoinColumn(name = "question_id")
-    private Question question;
+    private PermaQuestion question;
 
 
     @OneToMany(cascade = CascadeType.ALL)

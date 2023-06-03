@@ -17,7 +17,7 @@ public class Answer implements Serializable
 
     @ManyToOne
     @JoinColumn(name = "option_id")
-    private Option option;
+    private PermaOption option;
 
 
     private String answerStatus;

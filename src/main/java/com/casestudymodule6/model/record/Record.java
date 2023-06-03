@@ -32,7 +32,7 @@ public class Record implements Serializable
 
     @ManyToOne
     @JoinColumn(name = "exam_id")
-    private Exam exam;
+    private PermaExam exam;
 
     private int userPoint;
 
