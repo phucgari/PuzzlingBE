@@ -32,6 +32,12 @@ public class AccountServiceImpl implements IAccountService {
     public Account findByUsername(String username) {
         return iAccountRepository.findByUsername(username);
     }
+
+    @Override
+    public Account findByUser(User user) {
+        return iAccountRepository.findByUser(user);
+    }
+
     @Override
     public void remove(Long id) {
         iAccountRepository.deleteById(id);

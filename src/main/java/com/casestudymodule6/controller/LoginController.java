@@ -65,5 +65,12 @@ public class LoginController {
         }
         return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
-
+    @GetMapping("/checkEmail")
+    public ResponseEntity<String> checkEmail(@RequestParam String email){
+        Optional<User> user=userService.findUserByEmail(email);
+        if (user.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.CONFLICT);
+    }
 }
