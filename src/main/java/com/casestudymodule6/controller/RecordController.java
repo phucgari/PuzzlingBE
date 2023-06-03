@@ -40,8 +40,6 @@ public class RecordController
         record.setExamPoint(scoreSumOfExam);
         record.setUserPoint(scoreSumOfUser);
         record.setTime(current);
-        PermaExam permaExam=permaExamService.save(record.getExam());
-        record.setExam(permaExam);
         recordService.save(record);
         return new ResponseEntity<>(record,HttpStatus.OK);
     }
