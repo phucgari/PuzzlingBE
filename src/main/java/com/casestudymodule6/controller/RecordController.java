@@ -1,9 +1,11 @@
 package com.casestudymodule6.controller;
 
 import com.casestudymodule6.model.dto.LeaderDTO;
+import com.casestudymodule6.model.record.PermaExam;
 import com.casestudymodule6.model.record.Record;
 import com.casestudymodule6.model.user.User;
 import com.casestudymodule6.service.exam.IExamService;
+import com.casestudymodule6.service.record.IPermaExamService;
 import com.casestudymodule6.service.record.IRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,8 @@ public class RecordController
     private IExamService examService;
 
     @Autowired
+    private IPermaExamService permaExamService;
+    @Autowired
     private IRecordService recordService;
 
     @PostMapping("/createExamResult")
@@ -36,6 +40,8 @@ public class RecordController
         record.setExamPoint(scoreSumOfExam);
         record.setUserPoint(scoreSumOfUser);
         record.setTime(current);
+        PermaExam permaExam=permaExamService.save(record.getExam());
+        record.setExam(permaExam);
         recordService.save(record);
         return new ResponseEntity<>(record,HttpStatus.OK);
     }

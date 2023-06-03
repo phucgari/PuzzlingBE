@@ -30,7 +30,7 @@ public class Record implements Serializable
     private User user;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "exam_id")
     private PermaExam exam;
 

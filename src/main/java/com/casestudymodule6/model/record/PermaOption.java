@@ -5,7 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-@Entity(name = "options")
+@Entity
 @Data
 public class PermaOption
 {
