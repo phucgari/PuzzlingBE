@@ -26,7 +26,7 @@ public class UserController {
     private IAccountService accountService;
 
     @PutMapping("/{id}")
-    @PreAuthorize("@authorizationEvaluator.canUpdateThisUser(#id,user)")
+    @PreAuthorize("@authorizationEvaluator.canUpdateThisUser(#id,#user)")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
         Optional<User> userOptional = userService.findById(id);
         if (userOptional.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -63,49 +63,30 @@ public class UserController {
     }
 
     @GetMapping("/check/{account}")
-    public ResponseEntity<String> checkUsername(@RequestParam String password, @PathVariable Account account)
+    public ResponseEntity<String> checkPassword(@RequestParam String password, @PathVariable Account account)
     {
         if(Objects.equals(account.getPassword(), password))
         {
-            return new ResponseEntity<>(HttpStatus.OK);
+            return ResponseEntity.ok("OK");
         }
-        return new ResponseEntity<>(HttpStatus.CONFLICT);
+        return ResponseEntity.ok("NO");
     }
-
-    @GetMapping("/checkByEmail/{userId}")
-    public ResponseEntity<String> checkUsernameByEmail(@PathVariable("userId") User user)
-    {
-        User checkUserByEmail = userService.findUserByEmail(user.getEmail());
-
-        if (checkUserByEmail != null)
-        {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
-        else
-        {
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
+    @GetMapping("/checkEmail/{user}")
+    public ResponseEntity<String> checkEmail(@RequestParam String email,@PathVariable User user){
+        if(email.equals(user.getEmail()))
+            return ResponseEntity.ok("OK");
+        Optional<User> optionalUser=userService.findUserByEmail(email);
+        if(optionalUser.isEmpty())
+            return ResponseEntity.ok("OK");
+        return ResponseEntity.ok("NO");
     }
-    @GetMapping("/checkByPhone/{userId}")
-    public ResponseEntity<String> checkUsernameByPhone(@PathVariable("userId") User user)
-    {
-        User checkUserByPhone = userService.findUserByPhone(user.getPhone());
-
-        if (checkUserByPhone != null)
-        {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
-        else
-        {
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
+    @GetMapping("/checkPhone/{user}")
+    public ResponseEntity<String> checkPhone(@RequestParam String phone,@PathVariable User user){
+        if(phone.equals(user.getPhone()))
+            return ResponseEntity.ok("OK");
+        Optional<User> optionalUser=userService.findUserByPhone(phone);
+        if(optionalUser.isEmpty())
+            return ResponseEntity.ok("OK");
+        return ResponseEntity.ok("NO");
     }
-
-
-
-
-
-
-
-
 }

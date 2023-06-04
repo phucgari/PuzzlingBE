@@ -1,5 +1,6 @@
-package com.casestudymodule6.model.question;
+package com.casestudymodule6.model.record;
 
+import com.casestudymodule6.model.question.Category;
 import com.casestudymodule6.model.user.User;
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;
@@ -10,7 +11,7 @@ import java.util.Set;
 
 @Entity
 @Data
-public class Exam implements Serializable {
+public class PermaExam implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,7 +27,7 @@ public class Exam implements Serializable {
     private Category category;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "exam_id")
-    private Set<Question> questions;
+    private Set<PermaQuestion> questions;
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
@@ -34,3 +35,4 @@ public class Exam implements Serializable {
 
 
 }
+
