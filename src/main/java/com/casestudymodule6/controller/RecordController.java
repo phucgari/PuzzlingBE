@@ -56,14 +56,14 @@ public class RecordController
     }
 
     @GetMapping("/leaderboard/{examId}")
-    public ResponseEntity<List<Record>> leaderboard(@PathVariable("examId") Exam exam)
+    public ResponseEntity<List<LeaderDTO>> leaderboard(@PathVariable("examId") Exam exam)
     {
         Optional<Exam> ex = examService.findById(exam.getId());
 
         if (ex.isPresent())
         {
-            List<Record> records = recordService.findAllRecordByPermaExam(ex.get().getName());
-            return new ResponseEntity<>(records,HttpStatus.OK);
+            List<LeaderDTO> leaderDTO = recordService.findAllRecordByPermaExam(ex.get().getName());
+            return new ResponseEntity<>(leaderDTO,HttpStatus.OK);
         }
         else
         {

@@ -71,7 +71,7 @@ public class RecordService implements IRecordService
     }
 
     @Override
-    public List<Record> findAllRecordByPermaExam(String permaExamName) {
+    public List<LeaderDTO> findAllRecordByPermaExam(String permaExamName) {
         return recordRepository.findAllRecordByPermaExam(permaExamName);
     }
 

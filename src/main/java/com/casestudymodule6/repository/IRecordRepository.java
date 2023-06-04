@@ -24,8 +24,9 @@ List<LeaderDTO> findAllRecordByExam(@Param("examId") Long examId);
 
 
 
-@Query("select record from Record record join record.exam permaExam where permaExam = :permaExamName")
-List<Record> findAllRecordByPermaExam(@Param("permaExamName") String permaExamName);
+@Query(nativeQuery = true, value = "select account.username as 'username',(record.user_point / record.exam_point) * 100 as 'score' from quiz.record record join quiz.user u on u.id = record.user_id" +" "+
+        "join quiz.account account on account.user_id = u.id join quiz.perma_exam pe on pe.id = record.exam_id where pe.name = :permaExamName order by score desc")
+List<LeaderDTO> findAllRecordByPermaExam(@Param("permaExamName") String permaExamName);
 
 
 Iterable<Record> findRecordByUser(User user);
