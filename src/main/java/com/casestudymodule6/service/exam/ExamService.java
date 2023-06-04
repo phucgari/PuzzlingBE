@@ -4,6 +4,7 @@ package com.casestudymodule6.service.exam;
 import com.casestudymodule6.model.question.Category;
 import com.casestudymodule6.model.question.Exam;
 import com.casestudymodule6.model.question.Question;
+import com.casestudymodule6.model.record.PermaExam;
 import com.casestudymodule6.model.user.User;
 import com.casestudymodule6.repository.IExamRepository;
 import com.casestudymodule6.repository.IQuestionRepository;
@@ -63,10 +64,9 @@ public class ExamService implements IExamService
     }
 
     @Override
-    public int scoreSumOfExam(Long examId)
+    public int scoreSumOfExam(PermaExam exam)
     {
-        Set<Question> questions = questionRepository.findQuestionByExamId(examId);
-        return questions.stream().mapToInt(question -> question.getLevel().getScore()).sum();
+        return exam.getQuestions().stream().mapToInt(question -> question.getLevel().getScore()).sum();
     }
 
     @Override

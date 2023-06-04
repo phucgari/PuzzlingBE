@@ -30,7 +30,7 @@ public class RecordController
     public ResponseEntity<Record> getExamResult(@RequestBody Record record)
     {
         LocalDateTime current=LocalDateTime.now();
-        int scoreSumOfExam = examService.scoreSumOfExam(record.getExam().getId());
+        int scoreSumOfExam = examService.scoreSumOfExam(record.getExam());
         int scoreSumOfUser = recordService.scoreSumOfUser(record.getRecordDetail());
         record.setExamPoint(scoreSumOfExam);
         record.setUserPoint(scoreSumOfUser);
