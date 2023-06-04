@@ -23,6 +23,11 @@ public interface IRecordRepository extends JpaRepository<Record, Long>
 List<LeaderDTO> findAllRecordByExam(@Param("examId") Long examId);
 
 
+
+@Query("select record from Record record join record.exam permaExam where permaExam = :permaExamName")
+List<Record> findAllRecordByPermaExam(@Param("permaExamName") String permaExamName);
+
+
 Iterable<Record> findRecordByUser(User user);
 
 

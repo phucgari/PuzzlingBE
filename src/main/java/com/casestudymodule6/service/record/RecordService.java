@@ -70,5 +70,10 @@ public class RecordService implements IRecordService
         return recordRepository.findRecordByUser(user);
     }
 
+    @Override
+    public List<Record> findAllRecordByPermaExam(String permaExamName) {
+        return recordRepository.findAllRecordByPermaExam(permaExamName);
+    }
+
 
 }

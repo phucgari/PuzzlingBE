@@ -20,6 +20,8 @@ public interface IRecordService extends IGeneralService<Record>
 
     Iterable<Record> findRecordByUser(User user);
 
+    List<Record> findAllRecordByPermaExam(String permaExamName);
+
 
 
 
