@@ -1,16 +1,13 @@
 package com.casestudymodule6.controller;
 
 import com.casestudymodule6.model.dto.LeaderDTO;
-import com.casestudymodule6.model.record.PermaExam;
 import com.casestudymodule6.model.record.Record;
 import com.casestudymodule6.model.user.User;
 import com.casestudymodule6.service.exam.IExamService;
-import com.casestudymodule6.service.record.IPermaExamService;
 import com.casestudymodule6.service.record.IRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -26,8 +23,6 @@ public class RecordController
     @Autowired
     private IExamService examService;
 
-    @Autowired
-    private IPermaExamService permaExamService;
     @Autowired
     private IRecordService recordService;
 
