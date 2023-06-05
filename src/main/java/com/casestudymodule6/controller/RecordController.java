@@ -1,12 +1,7 @@
 package com.casestudymodule6.controller;
 
 import com.casestudymodule6.model.dto.LeaderDTO;
-<<<<<<< HEAD
 import com.casestudymodule6.model.question.Exam;
-import com.casestudymodule6.model.question.Option;
-import com.casestudymodule6.model.record.PermaExam;
-=======
->>>>>>> effaf62dc28c6b67757dbc33d0be993cc819ca77
 import com.casestudymodule6.model.record.Record;
 import com.casestudymodule6.model.user.User;
 import com.casestudymodule6.service.exam.IExamService;
