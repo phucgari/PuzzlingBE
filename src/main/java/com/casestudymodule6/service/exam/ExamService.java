@@ -64,6 +64,11 @@ public class ExamService implements IExamService
     }
 
     @Override
+    public Optional<Exam> findExamByUserAndName(User user, String name) {
+        return examRepository.findExamByUserAndName(user, name);
+    }
+
+    @Override
     public int scoreSumOfExam(PermaExam exam)
     {
         return exam.getQuestions().stream().mapToInt(question -> question.getLevel().getScore()).sum();

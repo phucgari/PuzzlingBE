@@ -2,7 +2,6 @@ package com.casestudymodule6.controller;
 
 import com.casestudymodule6.model.dto.LeaderDTO;
 import com.casestudymodule6.model.question.Exam;
-import com.casestudymodule6.model.question.Option;
 import com.casestudymodule6.model.record.PermaExam;
 import com.casestudymodule6.model.record.Record;
 import com.casestudymodule6.model.user.User;
@@ -50,20 +49,10 @@ public class RecordController
     }
 
     @GetMapping("/leaderboard/{examId}")
-    public ResponseEntity<List<LeaderDTO>> leaderboard(@PathVariable("examId") Exam exam)
+    public ResponseEntity<List<LeaderDTO>> leaderboard(@PathVariable("examId") PermaExam exam)
     {
-        Optional<Exam> ex = examService.findById(exam.getId());
-
-        if (ex.isPresent())
-        {
-            List<LeaderDTO> leaderDTO = recordService.findAllRecordByPermaExam(ex.get().getName(),ex.get().getUser().getId());
+            List<LeaderDTO> leaderDTO = recordService.findAllRecordByPermaExam(exam.getName(),exam.getUser().getId());
             return new ResponseEntity<>(leaderDTO,HttpStatus.OK);
-        }
-        else
-        {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-
     }
 
     @GetMapping("/findRecordByUser/{userId}")

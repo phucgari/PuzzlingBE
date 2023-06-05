@@ -37,9 +37,21 @@ public class ExamController
         return new ResponseEntity<>(optionalExam.get(),HttpStatus.OK);
     }
 
-    @PostMapping(value ="/create")
-    public ResponseEntity<Exam> createExam(@RequestBody Exam exam)
+    @GetMapping(value ="/check/{name}")
+    public ResponseEntity<String> checkExam(@PathVariable String name,@RequestParam User user)
     {
+        Optional<Exam> ex = examService.findExamByUserAndName(user, name);
+        if (ex.isPresent())
+        {
+            return new ResponseEntity<>("NO",HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity<>("OK",HttpStatus.OK);
+        }
+    }
+    @PostMapping(value = "/create")
+    public ResponseEntity<Exam>createExam(@RequestBody Exam exam){
         return new ResponseEntity<>(examService.save(exam),HttpStatus.CREATED);
     }
     @PutMapping("/update")
