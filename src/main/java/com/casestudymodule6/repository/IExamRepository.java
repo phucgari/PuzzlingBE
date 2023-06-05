@@ -25,7 +25,13 @@ public interface IExamRepository extends JpaRepository<Exam, Long>
 
       Optional<Exam> findExamByUserAndName(User user, String name);
 
-      @Query(nativeQuery = true, value = "select * from exam order by rand() limit 1")
+      @Query(nativeQuery = true, value = "SELECT e.* from (SELECT ex.*" +
+              " FROM exam ex" +
+              " JOIN question q ON ex.id = q.exam_id" +
+              " GROUP BY ex.id " +
+              " HAVING COUNT(q.id) >= 5" +
+              " ORDER BY RAND()" +
+              " LIMIT 1) e JOIN question q ON e.id = q.exam_id")
       Exam findRandomExam();
 
 
