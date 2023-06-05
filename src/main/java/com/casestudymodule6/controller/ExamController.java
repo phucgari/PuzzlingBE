@@ -81,10 +81,10 @@ public class ExamController
             return new ResponseEntity<>(exams,HttpStatus.OK);
         }
     }
-    @GetMapping("/searchExamsRandomByCategory")
-    public ResponseEntity<List<Exam>> searchExamsRandomByCategory(@RequestParam("categoriesId") Category category)
+    @GetMapping("/searchExamsByCategory")
+    public ResponseEntity<List<Exam>> searchExamsByCategory(@RequestParam("categoriesId") Category category)
     {
-         List<Exam> exams = (List<Exam>)examService.findExamsRandomByCategory(category);
+         List<Exam> exams = (List<Exam>)examService.findExamsByCategory(category);
          if (exams.size() == 0)
          {
              return new ResponseEntity<>(HttpStatus.NO_CONTENT);

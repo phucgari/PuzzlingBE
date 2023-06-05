@@ -19,8 +19,8 @@ public interface IExamRepository extends JpaRepository<Exam, Long>
       Iterable<Exam> findExamsByCategoryAndUser(Category category, User user);
 
 
-      @Query("select exam from Exam exam where exam.category = :category and exam.questions.size >= 5")
-      Iterable<Exam> findExamsRandomByCategory(Category category);
+
+      Iterable<Exam> findExamsByCategory(Category category);
 
 
       Optional<Exam> findExamByUserAndName(User user, String name);
