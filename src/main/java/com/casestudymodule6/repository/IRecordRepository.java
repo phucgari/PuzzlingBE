@@ -23,6 +23,18 @@ public interface IRecordRepository extends JpaRepository<Record, Long>
 List<LeaderDTO> findAllRecordByExam(@Param("examId") Long examId);
 
 
+
+@Query(nativeQuery = true, value = "select account.username " +
+        "as 'username',(record.user_point / record.exam_point) * 100 " +
+        "as 'score' " +
+        "from record record " +
+        "join user u on u.id = record.user_id" +" "+
+        "join account account on account.user_id = u.id " +
+        "join perma_exam pe on pe.id = record.exam_id " +
+        "where pe.name = :permaExamName and pe.user_id = :userId order by score desc")
+List<LeaderDTO> findAllRecordByPermaExam(@Param("permaExamName") String permaExamName, @Param("userId") Long userId);
+
+
 Iterable<Record> findRecordByUser(User user);
 
 

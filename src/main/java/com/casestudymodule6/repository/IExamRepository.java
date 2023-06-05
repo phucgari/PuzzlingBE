@@ -2,6 +2,7 @@ package com.casestudymodule6.repository;
 
 import com.casestudymodule6.model.question.Category;
 import com.casestudymodule6.model.question.Exam;
+import com.casestudymodule6.model.record.PermaExam;
 import com.casestudymodule6.model.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,6 +18,7 @@ public interface IExamRepository extends JpaRepository<Exam, Long>
 
       @Query("select exam from Exam exam where exam.category = :category and exam.questions.size >= 5")
       Iterable<Exam> findExamsRandomByCategory(Category category);
+
 
 
 }
