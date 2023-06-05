@@ -77,14 +77,14 @@ public class ExamService implements IExamService
     @Override
     public Exam findRandomExam()
     {
-        Random random = new Random();
-        List<Exam> examList = (List<Exam>) findAll();
-        Exam exam = examList.get(random.nextInt(examList.size()));
-        if (exam.getQuestions().size() >= 5)
-        {
-            return exam;
-        }
-        return null;
+//        Random random = new Random();
+//        List<Exam> examList = (List<Exam>) findAll();
+//        Exam exam = examList.get(random.nextInt(examList.size()));
+//        if (exam.getQuestions().size() >= 5)
+//        {
+//            return exam;
+//        }
+        return examRepository.findRandomExam();
     }
 
 }

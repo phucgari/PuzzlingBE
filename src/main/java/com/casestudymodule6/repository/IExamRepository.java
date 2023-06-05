@@ -25,6 +25,9 @@ public interface IExamRepository extends JpaRepository<Exam, Long>
 
       Optional<Exam> findExamByUserAndName(User user, String name);
 
+      @Query(nativeQuery = true, value = "select * from exam order by rand() limit 1")
+      Exam findRandomExam();
+
 
 
 }
