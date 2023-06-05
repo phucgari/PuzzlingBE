@@ -63,6 +63,11 @@ public class ExamService implements IExamService
     }
 
     @Override
+    public Optional<Exam> findExamByUserAndName(User user, String name) {
+        return examRepository.findExamByUserAndName(user, name);
+    }
+
+    @Override
     public int scoreSumOfExam(Long examId)
     {
         Set<Question> questions = questionRepository.findQuestionByExamId(examId);

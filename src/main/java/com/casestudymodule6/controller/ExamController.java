@@ -38,9 +38,17 @@ public class ExamController
     }
 
     @PostMapping(value ="/create")
-    public ResponseEntity<Exam> createExam(@RequestBody Exam exam)
+    public ResponseEntity<String> createExam(@RequestBody Exam exam)
     {
-        return new ResponseEntity<>(examService.save(exam),HttpStatus.CREATED);
+        Optional<Exam> ex = examService.findExamByUserAndName(exam.getUser(), exam.getName());
+        if (ex.isPresent())
+        {
+            return new ResponseEntity<>("NO",HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity<>("OK",HttpStatus.OK);
+        }
     }
     @PutMapping("/update")
     @PreAuthorize("@authorizationEvaluator.canUpdateThisExam(#examId)")
