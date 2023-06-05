@@ -20,7 +20,7 @@ public interface IRecordService extends IGeneralService<Record>
 
     Iterable<Record> findRecordByUser(User user);
 
-    List<LeaderDTO> findAllRecordByPermaExam(String permaExamName);
+    List<LeaderDTO> findAllRecordByPermaExam(String permaExamName, Long userId);
 
 
 

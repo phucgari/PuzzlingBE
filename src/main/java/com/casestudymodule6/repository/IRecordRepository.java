@@ -31,8 +31,8 @@ List<LeaderDTO> findAllRecordByExam(@Param("examId") Long examId);
         "join user u on u.id = record.user_id" +" "+
         "join account account on account.user_id = u.id " +
         "join perma_exam pe on pe.id = record.exam_id " +
-        "where pe.name = :permaExamName order by score desc")
-List<LeaderDTO> findAllRecordByPermaExam(@Param("permaExamName") String permaExamName);
+        "where pe.name = :permaExamName and pe.user_id = :userId order by score desc")
+List<LeaderDTO> findAllRecordByPermaExam(@Param("permaExamName") String permaExamName, @Param("userId") Long userId);
 
 
 Iterable<Record> findRecordByUser(User user);

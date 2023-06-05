@@ -59,7 +59,7 @@ public class RecordController
 
         if (ex.isPresent())
         {
-            List<LeaderDTO> leaderDTO = recordService.findAllRecordByPermaExam(ex.get().getName());
+            List<LeaderDTO> leaderDTO = recordService.findAllRecordByPermaExam(ex.get().getName(),ex.get().getUser().getId());
             return new ResponseEntity<>(leaderDTO,HttpStatus.OK);
         }
         else
