@@ -27,8 +27,8 @@ List<LeaderDTO> findAllRecordByExam(@Param("examId") Long examId);
 @Query(nativeQuery = true, value = "select account.username " +
         "as 'username',(record.user_point / record.exam_point) * 100 " +
         "as 'score', " +
-        "u.picture as 'picture', " +
-        "record.id as 'recordId'," +
+        "u.avatar as 'picture', " +
+        "record.id as 'recordId' " +
         "from record record " +
         "join user u on u.id = record.user_id" +" "+
         "join account account on account.user_id = u.id " +

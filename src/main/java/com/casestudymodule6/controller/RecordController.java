@@ -2,6 +2,7 @@ package com.casestudymodule6.controller;
 
 import com.casestudymodule6.model.dto.LeaderDTO;
 import com.casestudymodule6.model.question.Exam;
+import com.casestudymodule6.model.record.PermaExam;
 import com.casestudymodule6.model.record.Record;
 import com.casestudymodule6.model.user.User;
 import com.casestudymodule6.service.exam.IExamService;
@@ -31,7 +32,7 @@ public class RecordController
     public ResponseEntity<Record> getExamResult(@RequestBody Record record)
     {
         LocalDateTime current=LocalDateTime.now();
-        int scoreSumOfExam = examService.scoreSumOfExam(record.getExam().getId());
+        int scoreSumOfExam = examService.scoreSumOfExam(record.getExam());
         int scoreSumOfUser = recordService.scoreSumOfUser(record.getRecordDetail());
         record.setExamPoint(scoreSumOfExam);
         record.setUserPoint(scoreSumOfUser);
@@ -48,20 +49,10 @@ public class RecordController
     }
 
     @GetMapping("/leaderboard/{examId}")
-    public ResponseEntity<List<LeaderDTO>> leaderboard(@PathVariable("examId") Exam exam)
+    public ResponseEntity<List<LeaderDTO>> leaderboard(@PathVariable("examId") PermaExam exam)
     {
-        Optional<Exam> ex = examService.findById(exam.getId());
-
-        if (ex.isPresent())
-        {
-            List<LeaderDTO> leaderDTO = recordService.findAllRecordByPermaExam(ex.get().getName(),ex.get().getUser().getId());
+            List<LeaderDTO> leaderDTO = recordService.findAllRecordByPermaExam(exam.getName(),exam.getUser().getId());
             return new ResponseEntity<>(leaderDTO,HttpStatus.OK);
-        }
-        else
-        {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-
     }
 
     @GetMapping("/findRecordByUser/{userId}")
