@@ -5,6 +5,7 @@ import com.casestudymodule6.model.question.Category;
 import com.casestudymodule6.model.question.Exam;
 import com.casestudymodule6.model.question.Question;
 import com.casestudymodule6.model.record.PermaExam;
+import com.casestudymodule6.model.record.Record;
 import com.casestudymodule6.model.user.User;
 import com.casestudymodule6.repository.IExamRepository;
 import com.casestudymodule6.repository.IQuestionRepository;
@@ -69,9 +70,9 @@ public class ExamService implements IExamService
     }
 
     @Override
-    public int scoreSumOfExam(PermaExam exam)
+    public int scoreSumOfExam(Record record)
     {
-        return exam.getQuestions().stream().mapToInt(question -> question.getLevel().getScore()).sum();
+        return record.getRecordDetail().stream().mapToInt(recordDetail -> recordDetail.getQuestion().getLevel().getScore()).sum();
     }
 
     @Override

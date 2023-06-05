@@ -15,7 +15,7 @@ public class Answer implements Serializable
     private Long id;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "option_id")
     private PermaOption option;
 

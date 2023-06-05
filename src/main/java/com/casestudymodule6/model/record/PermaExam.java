@@ -25,9 +25,7 @@ public class PermaExam implements Serializable {
     @ManyToOne
     @JoinColumn(name="category_id")
     private Category category;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "exam_id")
-    private Set<PermaQuestion> questions;
+
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
