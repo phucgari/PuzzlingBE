@@ -37,9 +37,6 @@ public class PermaQuestion {
         ONE_CHOICE, MULTI_CHOICE
     }
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "question_id")
-    private Set<PermaOption> options;
 
 
 }

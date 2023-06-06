@@ -5,6 +5,7 @@ import com.casestudymodule6.model.question.Exam;
 import com.casestudymodule6.model.record.PermaExam;
 import com.casestudymodule6.model.record.Record;
 import com.casestudymodule6.model.user.User;
+import com.casestudymodule6.repository.IPermaExamRepository;
 import com.casestudymodule6.service.exam.IExamService;
 import com.casestudymodule6.service.record.IRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class RecordController
     public ResponseEntity<Record> getExamResult(@RequestBody Record record)
     {
         LocalDateTime current=LocalDateTime.now();
-        int scoreSumOfExam = examService.scoreSumOfExam(record.getExam());
+        int scoreSumOfExam = examService.scoreSumOfExam(record);
         int scoreSumOfUser = recordService.scoreSumOfUser(record.getRecordDetail());
         record.setExamPoint(scoreSumOfExam);
         record.setUserPoint(scoreSumOfUser);

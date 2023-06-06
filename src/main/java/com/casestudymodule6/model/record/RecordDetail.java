@@ -15,7 +15,7 @@ public class RecordDetail implements Serializable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "question_id")
     private PermaQuestion question;
 
