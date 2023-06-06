@@ -25,32 +25,30 @@ public class UserController {
     @Autowired
     private IAccountService accountService;
 
-    @PutMapping("/{id}")
-    @PreAuthorize("@authorizationEvaluator.canUpdateThisUser(#id,#user)")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
-        Optional<User> userOptional = userService.findById(id);
-        if (userOptional.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        user.setId(userOptional.get().getId());
-        return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
+    @PutMapping("/{account}")
+    @PreAuthorize("@authorizationEvaluator.canUpdateThisUser(#account)")
+    public ResponseEntity<User> updateUser(@PathVariable Account account, @RequestBody User user) {
+        user.setId(account.getUser().getId());
+        account.setUser(user);
+        return new ResponseEntity<>(accountService.save(account).getUser(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<User> viewUserDetail(@PathVariable("id") Long id) {
-        Optional<User> userOptional = userService.findById(id);
-        return userOptional.map(user -> new ResponseEntity<>(user, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        Optional<Account> optionalAccount=accountService.findById(id);
+        return optionalAccount.map(account -> new ResponseEntity<>(account.getUser(), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PutMapping("/changePassword/{accountId}")
-    @PreAuthorize("@authorizationEvaluator.canChangePassword(#accountId)")
-    public ResponseEntity<Void> changePassword(@PathVariable("accountId") Long accountId, @RequestBody ChangePasswordDTO changePasswordDTO)
+    @PutMapping("/changePassword/{account}")
+    @PreAuthorize("@authorizationEvaluator.canUpdateThisUser(#account)")
+    public ResponseEntity<Void> changePassword(@PathVariable Account account, @RequestBody ChangePasswordDTO changePasswordDTO)
     {
-        Optional<Account> account = accountService.findById(accountId);
-        if (account.get().getPassword().equals(changePasswordDTO.getOldPassword()))
+        if (account.getPassword().equals(changePasswordDTO.getOldPassword()))
         {
             if (changePasswordDTO.getConfirmPassword().equals(changePasswordDTO.getNewPassword()))
             {
-                account.get().setPassword(changePasswordDTO.getNewPassword());
-                accountService.save(account.get());
+                account.setPassword(changePasswordDTO.getNewPassword());
+                accountService.save(account);
                 return new ResponseEntity<>(HttpStatus.OK);
             }
             else
@@ -71,18 +69,18 @@ public class UserController {
         }
         return ResponseEntity.ok("NO");
     }
-    @GetMapping("/checkEmail/{user}")
-    public ResponseEntity<String> checkEmail(@RequestParam String email,@PathVariable User user){
-        if(email.equals(user.getEmail()))
+    @GetMapping("/checkEmail/{account}")
+    public ResponseEntity<String> checkEmail(@RequestParam String email,@PathVariable Account account){
+        if(email.equals(account.getUser().getEmail()))
             return ResponseEntity.ok("OK");
         Optional<User> optionalUser=userService.findUserByEmail(email);
         if(optionalUser.isEmpty())
             return ResponseEntity.ok("OK");
         return ResponseEntity.ok("NO");
     }
-    @GetMapping("/checkPhone/{user}")
-    public ResponseEntity<String> checkPhone(@RequestParam String phone,@PathVariable User user){
-        if(phone.equals(user.getPhone()))
+    @GetMapping("/checkPhone/{account}")
+    public ResponseEntity<String> checkPhone(@RequestParam String phone,@PathVariable Account account){
+        if(phone.equals(account.getUser().getPhone()))
             return ResponseEntity.ok("OK");
         Optional<User> optionalUser=userService.findUserByPhone(phone);
         if(optionalUser.isEmpty())

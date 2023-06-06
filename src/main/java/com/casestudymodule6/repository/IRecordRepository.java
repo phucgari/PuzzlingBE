@@ -24,16 +24,18 @@ List<LeaderDTO> findAllRecordByExam(@Param("examId") Long examId);
 
 
 
-@Query(nativeQuery = true, value = "select account.username " +
-        "as 'username',(record.user_point / record.exam_point) * 100 " +
-        "as 'score', " +
-        "u.avatar as 'picture', " +
-        "record.id as 'recordId' " +
-        "from record record " +
-        "join user u on u.id = record.user_id" +" "+
-        "join account account on account.user_id = u.id " +
-        "join perma_exam pe on pe.id = record.exam_id " +
-        "where pe.name = :permaExamName and pe.user_id = :userId order by score desc")
+@Query(nativeQuery = true, value = "select record.id as 'recordId' , subtable.score, u.avatar as 'picture', a.username as 'username'\n" +
+        "from record\n" +
+        "join\n" +
+        "(select Max(user_point/record.exam_point*100) as score, record.user_id as doer_id\n" +
+        "from record\n" +
+        "join perma_exam pe on pe.id = record.exam_id\n" +
+        "where pe.name= :permaExamName and pe.user_id= :userId \n" +
+        "group by doer_id) as subtable on subtable.score=(record.user_point/record.exam_point)*100\n" +
+        "join user u on u.id=subtable.doer_id\n" +
+        "join account a on u.id = a.user_id\n" +
+        "group by record.id, subtable.score, u.avatar, a.username\n" +
+        "order by score desc")
 List<LeaderDTO> findAllRecordByPermaExam(@Param("permaExamName") String permaExamName, @Param("userId") Long userId);
 
 
