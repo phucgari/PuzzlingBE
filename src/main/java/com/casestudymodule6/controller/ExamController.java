@@ -2,6 +2,7 @@ package com.casestudymodule6.controller;
 
 import com.casestudymodule6.model.question.Category;
 import com.casestudymodule6.model.question.Exam;
+import com.casestudymodule6.model.user.Account;
 import com.casestudymodule6.model.user.User;
 import com.casestudymodule6.service.exam.IExamService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +39,9 @@ public class ExamController
     }
 
     @GetMapping(value ="/check/{name}")
-    public ResponseEntity<String> checkExam(@PathVariable String name,@RequestParam User user)
+    public ResponseEntity<String> checkExam(@PathVariable String name,@RequestParam Account account)
     {
-        Optional<Exam> ex = examService.findExamByUserAndName(user, name);
+        Optional<Exam> ex = examService.findExamByUserAndName(account.getUser(), name);
         if (ex.isPresent())
         {
             return new ResponseEntity<>("NO",HttpStatus.OK);
@@ -51,7 +52,8 @@ public class ExamController
         }
     }
     @PostMapping(value = "/create")
-    public ResponseEntity<Exam>createExam(@RequestBody Exam exam){
+    public ResponseEntity<Exam>createExam(@RequestBody Exam exam,@RequestParam Account account){
+        exam.setUser(account.getUser());
         return new ResponseEntity<>(examService.save(exam),HttpStatus.CREATED);
     }
     @PutMapping("/update")
@@ -73,9 +75,9 @@ public class ExamController
     }
 
     @GetMapping("/searchExamsByCategoryAndUser")
-    public ResponseEntity<List<Exam>> searchExamsByCategoryAndUser(@RequestParam("categoriesId") Category category, @RequestParam("userId") User user)
+    public ResponseEntity<List<Exam>> searchExamsByCategoryAndUser(@RequestParam("categoriesId") Category category, @RequestParam Account account)
     {
-        List<Exam> exams = (List<Exam>) examService.findExamsByCategoryAndUser(category, user);
+        List<Exam> exams = (List<Exam>) examService.findExamsByCategoryAndUser(category, account.getUser());
         if (exams.size() == 0)
         {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

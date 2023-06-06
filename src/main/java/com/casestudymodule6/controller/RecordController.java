@@ -4,6 +4,7 @@ import com.casestudymodule6.model.dto.LeaderDTO;
 import com.casestudymodule6.model.question.Exam;
 import com.casestudymodule6.model.record.PermaExam;
 import com.casestudymodule6.model.record.Record;
+import com.casestudymodule6.model.user.Account;
 import com.casestudymodule6.model.user.User;
 import com.casestudymodule6.repository.IPermaExamRepository;
 import com.casestudymodule6.service.exam.IExamService;
@@ -29,9 +30,10 @@ public class RecordController
     @Autowired
     private IRecordService recordService;
 
-    @PostMapping("/createExamResult")
-    public ResponseEntity<Record> getExamResult(@RequestBody Record record)
+    @PostMapping("/createExamResult/{account}")
+    public ResponseEntity<Record> getExamResult(@RequestBody Record record,@PathVariable Account account)
     {
+        record.setUser(account.getUser());
         LocalDateTime current=LocalDateTime.now();
         int scoreSumOfExam = examService.scoreSumOfExam(record);
         int scoreSumOfUser = recordService.scoreSumOfUser(record.getRecordDetail());
@@ -56,18 +58,18 @@ public class RecordController
             return new ResponseEntity<>(leaderDTO,HttpStatus.OK);
     }
     @GetMapping("/leaderboard/owner")
-    public ResponseEntity<List<LeaderDTO>> leaderboard(@RequestParam("name") String examName, @RequestParam("user") User user)
+    public ResponseEntity<List<LeaderDTO>> leaderboard(@RequestParam("name") String examName, @RequestParam("account") Account account)
     {
-        List<LeaderDTO> leaderDTO = recordService.findAllRecordByPermaExam(examName, user.getId());
+        List<LeaderDTO> leaderDTO = recordService.findAllRecordByPermaExam(examName, account.getUser().getId());
         return new ResponseEntity<>(leaderDTO,HttpStatus.OK);
     }
 
 
 
-    @GetMapping("/findRecordByUser/{userId}")
-    public ResponseEntity<List<Record>> findRecordByUser(@PathVariable("userId")User user)
+    @GetMapping("/findRecordByUser/{account}")
+    public ResponseEntity<List<Record>> findRecordByUser(@PathVariable("account") Account account)
     {
-        List<Record> records = (List<Record>)recordService.findRecordByUser(user);
+        List<Record> records = (List<Record>)recordService.findRecordByUser(account.getUser());
 
         if (records.size() == 0)
         {

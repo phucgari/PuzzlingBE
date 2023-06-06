@@ -24,20 +24,21 @@ List<LeaderDTO> findAllRecordByExam(@Param("examId") Long examId);
 
 
 
-@Query(nativeQuery = true, value = "select record.id as 'recordId' , subtable.score, u.avatar as 'picture', a.username as 'username'\n" +
-        "from record\n" +
-        "join\n" +
-        "(select Max(user_point/record.exam_point*100) as score, record.user_id as doer_id\n" +
-        "from record\n" +
-        "join perma_exam pe on pe.id = record.exam_id\n" +
-        "where pe.name= :permaExamName and pe.user_id= :userId \n" +
-        "group by doer_id) as subtable on subtable.score=(record.user_point/record.exam_point)*100\n" +
-        "join user u on u.id=subtable.doer_id\n" +
-        "join account a on u.id = a.user_id\n" +
-        "group by record.id, subtable.score, u.avatar, a.username\n" +
-        "order by score desc")
-List<LeaderDTO> findAllRecordByPermaExam(@Param("permaExamName") String permaExamName, @Param("userId") Long userId);
-
+    @Query(nativeQuery = true, value = "SELECT r.username, r.score, r.picture, r.record_id as 'recordID' " +
+            "FROM " +
+            "(SELECT account.username AS 'username', " +
+            "MAX((record.user_point / record.exam_point) * 100) AS 'score', " +
+            "u.avatar AS 'picture', " +
+            "MAX(record.id) AS 'record_id' " +
+            "FROM record record " +
+            "JOIN user u ON u.id = record.user_id " +
+            "JOIN account account ON account.user_id = u.id " +
+            "JOIN perma_exam pe ON pe.id = record.exam_id " +
+            "WHERE pe.name = :permaExamName AND pe.user_id = :userId " +
+            "GROUP BY account.username) r " +
+            "JOIN record ON record.id = r.record_id " +
+            "ORDER BY r.score DESC")
+    List<LeaderDTO> findAllRecordByPermaExam(@Param("permaExamName") String permaExamName, @Param("userId") Long userId);
 
 Iterable<Record> findRecordByUser(User user);
 
