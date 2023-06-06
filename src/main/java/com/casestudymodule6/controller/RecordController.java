@@ -54,6 +54,14 @@ public class RecordController
             List<LeaderDTO> leaderDTO = recordService.findAllRecordByPermaExam(exam.getName(),exam.getUser().getId());
             return new ResponseEntity<>(leaderDTO,HttpStatus.OK);
     }
+    @GetMapping("/leaderboard/owner")
+    public ResponseEntity<List<LeaderDTO>> leaderboard(@RequestParam("name") String examName, @RequestParam("user") User user)
+    {
+        List<LeaderDTO> leaderDTO = recordService.findAllRecordByPermaExam(examName, user.getId());
+        return new ResponseEntity<>(leaderDTO,HttpStatus.OK);
+    }
+
+
 
     @GetMapping("/findRecordByUser/{userId}")
     public ResponseEntity<List<Record>> findRecordByUser(@PathVariable("userId")User user)
