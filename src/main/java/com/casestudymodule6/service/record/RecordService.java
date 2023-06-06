@@ -61,13 +61,18 @@ public class RecordService implements IRecordService
     }
 
     @Override
-    public List<LeaderDTO> findAllUserByExam(Long examId) {
-        return recordRepository.findAllUserByExam(examId);
+    public List<LeaderDTO> findAllRecordByExam(Long examId) {
+        return recordRepository.findAllRecordByExam(examId);
     }
 
     @Override
     public Iterable<Record> findRecordByUser(User user) {
         return recordRepository.findRecordByUser(user);
+    }
+
+    @Override
+    public List<LeaderDTO> findAllRecordByPermaExam(String permaExamName, Long userId) {
+        return recordRepository.findAllRecordByPermaExam(permaExamName, userId);
     }
 
 

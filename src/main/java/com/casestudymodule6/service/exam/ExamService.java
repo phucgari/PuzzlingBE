@@ -4,6 +4,8 @@ package com.casestudymodule6.service.exam;
 import com.casestudymodule6.model.question.Category;
 import com.casestudymodule6.model.question.Exam;
 import com.casestudymodule6.model.question.Question;
+import com.casestudymodule6.model.record.PermaExam;
+import com.casestudymodule6.model.record.Record;
 import com.casestudymodule6.model.user.User;
 import com.casestudymodule6.repository.IExamRepository;
 import com.casestudymodule6.repository.IQuestionRepository;
@@ -58,33 +60,32 @@ public class ExamService implements IExamService
     }
 
     @Override
-    public Iterable<Exam> findExamsRandomByCategory(Category category) {
-        return examRepository.findExamsRandomByCategory(category);
-    }
-
-    @Override
     public Iterable<Exam> findExamsByCategory(Category category) {
         return examRepository.findExamsByCategory(category);
     }
 
     @Override
-    public int scoreSumOfExam(Long examId)
+    public Optional<Exam> findExamByUserAndName(User user, String name) {
+        return examRepository.findExamByUserAndName(user, name);
+    }
+
+    @Override
+    public int scoreSumOfExam(Record record)
     {
-        Set<Question> questions = questionRepository.findQuestionByExamId(examId);
-        return questions.stream().mapToInt(question -> question.getLevel().getScore()).sum();
+        return record.getRecordDetail().stream().mapToInt(recordDetail -> recordDetail.getQuestion().getLevel().getScore()).sum();
     }
 
     @Override
     public Exam findRandomExam()
     {
-        Random random = new Random();
-        List<Exam> examList = (List<Exam>) findAll();
-        Exam exam = examList.get(random.nextInt(examList.size()));
-        if (exam.getQuestions().size() >= 5)
-        {
-            return exam;
-        }
-        return null;
+//        Random random = new Random();
+//        List<Exam> examList = (List<Exam>) findAll();
+//        Exam exam = examList.get(random.nextInt(examList.size()));
+//        if (exam.getQuestions().size() >= 5)
+//        {
+//            return exam;
+//        }
+        return examRepository.findRandomExam();
     }
 
 }

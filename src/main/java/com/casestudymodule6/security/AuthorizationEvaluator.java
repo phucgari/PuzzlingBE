@@ -28,17 +28,8 @@ public class AuthorizationEvaluator {
         Authentication a= SecurityContextHolder.getContext().getAuthentication();
         return acc.getUsername().equals(a.getName());
     }
-    public boolean canUpdateThisUser(Long userId, User user){
+    public boolean canUpdateThisUser(Account account){
         Authentication a= SecurityContextHolder.getContext().getAuthentication();
-        Account accountFromUser=accountService.findByUser(user);
-        User userFromUserId=userService.findById(userId).get();
-        Account accountFromUserId=accountService.findByUser(userFromUserId);
-        return a.getName().equals(accountFromUser.getUsername())&&
-                accountFromUser.getUsername().equals(accountFromUserId.getUsername());
-    }
-    public boolean canChangePassword(Long accountId){
-        Authentication a= SecurityContextHolder.getContext().getAuthentication();
-        Account account=accountService.findById(accountId).get();
-        return account.getUsername().equals(a.getName());
+        return a.getName().equals(account.getUsername());
     }
 }

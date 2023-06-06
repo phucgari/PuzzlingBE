@@ -15,10 +15,12 @@ public interface IRecordService extends IGeneralService<Record>
     int scoreSumOfUser(Iterable<RecordDetail> recordDetails);
 
 
-    List<LeaderDTO> findAllUserByExam(Long examId);
+    List<LeaderDTO> findAllRecordByExam(Long examId);
 
 
     Iterable<Record> findRecordByUser(User user);
+
+    List<LeaderDTO> findAllRecordByPermaExam(String permaExamName, Long userId);
 
 
 
