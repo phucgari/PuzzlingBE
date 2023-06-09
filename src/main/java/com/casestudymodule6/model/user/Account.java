@@ -25,6 +25,7 @@ public class Account {
     private Role role;
     @Size(min=6,max = 32)
     @NotNull
+    @Column(unique=true)
     private String username;
     @Size(min=6,max = 32)
     @NotNull

@@ -31,6 +31,10 @@ public class LoginController {
         }
     }
 
+    @GetMapping("{account}")
+    public ResponseEntity<Account> getAccountById(@PathVariable Account account) {
+        return ResponseEntity.ok(account);
+    }
 
     @PostMapping("/login")
     public ResponseEntity<Account> loginAccount(@RequestBody Account account) {
@@ -61,5 +65,12 @@ public class LoginController {
         }
         return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
-
+    @GetMapping("/checkEmail")
+    public ResponseEntity<String> checkEmail(@RequestParam String email){
+        Optional<User> user=userService.findUserByEmail(email);
+        if (user.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.CONFLICT);
+    }
 }

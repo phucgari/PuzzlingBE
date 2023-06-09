@@ -6,4 +6,8 @@ public interface LeaderDTO
 
     Double getScore();
 
+    String getPicture();
+
+    Long getRecordId();
+
 }

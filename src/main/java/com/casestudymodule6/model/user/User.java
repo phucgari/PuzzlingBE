@@ -13,7 +13,9 @@ public class User {
     private Long id;
     String avatar;
     String name;
+    @Column(unique=true)
     String email;
+    @Column(unique=true)
     String phone;
     @Enumerated(EnumType.STRING)
     Gender gender;

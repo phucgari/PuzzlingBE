@@ -33,4 +33,13 @@ public class UserServiceImpl implements IUserService {
     }
 
 
+    @Override
+    public Optional<User> findUserByEmail(String email) {
+        return userRepository.findUserByEmail(email);
+    }
+
+    @Override
+    public Optional<User> findUserByPhone(String phone) {
+        return userRepository.findUserByPhone(phone);
+    }
 }
